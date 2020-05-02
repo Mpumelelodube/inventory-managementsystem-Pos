@@ -1,0 +1,54 @@
+.stockFields{
+     -fx-background-color:transparent;
+     -fx-background-radius:0;
+     -fx-border-width:0 0 1 0;
+     -fx-border-color:#777b7e;
+     -fx-text-fill:#777b7e;
+     -fx-prompt-text-fill:gray;
+
+
+}
+.stockFields:hover{
+     -fx-background-color:white;
+     -fx-background-radius:0;
+     -fx-border-width:0 0 2 0;
+     -fx-border-color:#fa8072;
+     -fx-text-fill:#777b7e;
+     -fx-prompt-text-fill:#fa8072;
+
+
+
+}
+.stockFields:focused{
+     -fx-background-color:white;
+     -fx-background-radius:0;
+     -fx-border-width:0 0 2 0;
+     -fx-border-color:#ff2400;
+     -fx-text-fill:#777b7e;
+     -fx-prompt-text-fill:#ff2400;
+
+
+
+}
+.stockButtons{
+    -fx-background-color:transparent;
+    -fx-border-radius:10;
+    -fx-border-width:0.2;
+    -fx-text-fill:#777b7e;
+    -fx-border-color:#777b7e;
+}
+.stockButtons:hover{
+    -fx-background-color:transparent;
+    -fx-border-radius:10;
+    -fx-border-width:2;
+    -fx-text-fill:#777b7e;
+    -fx-border-color:#777b7e;
+
+}
+.stockButtons:pressed{
+    -fx-background-color:transparent;
+    -fx-border-radius:10;
+    -fx-border-width:2;
+    -fx-text-fill:#777b7e;
+    -fx-border-color:#1134a6;
+}

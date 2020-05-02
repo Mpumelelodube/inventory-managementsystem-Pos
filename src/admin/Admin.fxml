@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="1366.0" style="-fx-background-color: #d9dddc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+   <Label layoutX="108.0" layoutY="79.0" prefHeight="37.0" prefWidth="116.0" text="Label" />
+   <AnchorPane layoutX="241.0" layoutY="67.0" prefHeight="595.0" prefWidth="1101.0">
+      <AnchorPane layoutX="3.0" prefHeight="595.0" prefWidth="1101.0">
+         <Pane fx:id="paneItems" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: green;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="1101.0">
+               <TableView fx:id="items" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="1099.0">
+                  <columns>
+                     <TableColumn fx:id="id" prefWidth="67.0" styleClass="remake" text="ID" />
+                     <TableColumn fx:id="name" prefWidth="204.0" styleClass="remake" text="Product Name" />
+                     <TableColumn fx:id="category" prefWidth="150.0" styleClass="remake" text="Category" />
+                     <TableColumn fx:id="brandColumn" prefWidth="151.0" styleClass="remake" text="Brand" />
+                     <TableColumn fx:id="quantity" prefWidth="79.0" styleClass="remake" text="Quantity" />
+                     <TableColumn fx:id="costPrice" prefWidth="104.0" styleClass="remake" text="Cost Price" />
+                     <TableColumn fx:id="markup" prefWidth="139.0" styleClass="remake" text="Mark Up" />
+                     <TableColumn fx:id="sellingPrice" prefWidth="125.0" styleClass="remake" text="Selling Price" />
+                     <TableColumn fx:id="damaged" prefWidth="83.0" styleClass="remake" text="Damaged" />
+                  </columns>
+               </TableView>
+            </ScrollPane>
+         </Pane>
+         <Pane fx:id="paneSales" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: red;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="1101.0">
+               <TableView fx:id="salesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="1099.0">
+                  <columns>
+                     <TableColumn fx:id="salesDate" prefWidth="138.0" styleClass="remake" text="Date" />
+                     <TableColumn fx:id="salesId" prefWidth="85.0" styleClass="remake" text="sales ID" />
+                     <TableColumn fx:id="itermId" prefWidth="86.0" styleClass="remake" text="product ID" />
+                     <TableColumn fx:id="columnSalesItemName" prefWidth="206.0" styleClass="remake" text="Product Name" />
+                     <TableColumn fx:id="columnSalesCategory" prefWidth="135.0" styleClass="remake" text="Category" />
+                     <TableColumn fx:id="quan" prefWidth="142.0" styleClass="remake" text="Quantity" />
+                     <TableColumn fx:id="columnSalesSellingPrice" prefWidth="100.0" styleClass="remake" text="Selling Price" />
+                     <TableColumn fx:id="columnSalestotal" prefWidth="95.0" styleClass="remake" text="Total Price" />
+                     <TableColumn fx:id="columnReceiptNumber" prefWidth="117.0" styleClass="remake" text="Receipt #" />
+                  </columns>
+               </TableView>
+            </ScrollPane>
+         </Pane>
+         <Pane fx:id="usersPane" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox layoutX="40.0" layoutY="43.0" prefHeight="507.0" prefWidth="327.0" styleClass="stockFrontPanes">
+               <ScrollPane prefHeight="507.0" prefWidth="316.0">
+                  <TableView fx:id="loginTable" prefHeight="504.0" prefWidth="325.0">
+                     <columns>
+                        <TableColumn fx:id="logedUser" prefWidth="87.0" text="User Name" />
+                        <TableColumn fx:id="logedDate" prefWidth="152.0" text="Date and Time" />
+                        <TableColumn fx:id="status" prefWidth="85.0" text="Status" />
+                     </columns>
+                  </TableView>
+               </ScrollPane>
+            </VBox>
+            <Pane fx:id="Pane111" layoutX="392.0" layoutY="43.0" prefHeight="507.0" prefWidth="658.0" styleClass="stockFrontPanes">
+               <Button layoutX="296.0" layoutY="446.0" mnemonicParsing="false" onAction="#createUser" styleClass="stockButtons" text="Create" />
+               <TableView fx:id="userTable" prefHeight="297.0" prefWidth="658.0">
+                  <columns>
+                     <TableColumn fx:id="userDataNameColumn" prefWidth="132.0" styleClass="remake" text="First Name" />
+                     <TableColumn fx:id="userDataSurnameColumn" prefWidth="135.0" styleClass="remake" text="Last Name" />
+                     <TableColumn fx:id="userDataUsernameColumn" prefWidth="144.0" styleClass="remake" text="User Name" />
+                     <TableColumn fx:id="userDataAccessLevelColumn" prefWidth="119.0" styleClass="remake" text="A/C Level" />
+                     <TableColumn fx:id="userDataLastLoginColumn" prefWidth="126.0" styleClass="remake" text="Last Login" />
+                  </columns>
+               </TableView>
+               <TextField fx:id="createUserNameField" layoutX="30.0" layoutY="357.0" promptText="First Name" styleClass="stockFields" />
+               <TextField fx:id="createUserUserNameField" layoutX="30.0" layoutY="404.0" promptText="User Name" styleClass="stockFields" />
+               <TextField fx:id="createUserLastNameField" layoutX="244.0" layoutY="357.0" promptText="Last Name" styleClass="stockFields" />
+               <ComboBox fx:id="accessLevelCombo" layoutX="30.0" layoutY="446.0" prefWidth="150.0" promptText="A/C Level" styleClass="stockButtons" />
+               <Label layoutX="200.0" layoutY="318.0" text="Add User" />
+               <Label layoutX="506.0" layoutY="318.0" text="Delete User" />
+               <TextField fx:id="deleteUserField" layoutX="459.0" layoutY="357.0" promptText="User Name" styleClass="stockFields" />
+               <Button layoutX="513.0" layoutY="446.0" mnemonicParsing="false" onAction="#deleteUser" styleClass="stockButtons" text="Delete" />
+               <PasswordField fx:id="createUserPasswordField" layoutX="244.0" layoutY="404.0" promptText="Password" styleClass="stockFields" />
+            </Pane>
+         </Pane>
+         <Pane fx:id="paneEditInventory" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane layoutX="42.0" layoutY="35.0" prefHeight="507.0" prefWidth="272.0" styleClass="stockFrontPanes">
+               <Button layoutX="108.0" layoutY="457.0" mnemonicParsing="false" onAction="#addIterm" prefHeight="23.0" prefWidth="57.0" styleClass="stockButtons">
+                  <graphic>
+                     <ImageView fitHeight="25.0" fitWidth="25.0">
+                        <Image url="@../icons/icons8-add-100.png" />
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Label layoutX="83.0" layoutY="24.0" text="Add New Product" />
+               <VBox layoutX="8.0" layoutY="54.0" prefHeight="365.0" prefWidth="258.0">
+                  <TextField fx:id="idField" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="nameField" prefHeight="26.0" prefWidth="227.0" promptText="Product Name" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="costPriceField" prefHeight="26.0" prefWidth="227.0" promptText="Cost Price" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="markupField" prefHeight="26.0" prefWidth="227.0" promptText="Mark Up" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="sellingPriceField" prefHeight="26.0" prefWidth="227.0" promptText="Seling Price" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="quantityField" prefHeight="26.0" prefWidth="227.0" promptText="Quantity" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="brand" layoutX="10.0" layoutY="265.0" prefHeight="26.0" prefWidth="227.0" promptText="Brand" styleClass="stockFields">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <ComboBox fx:id="categoryField" prefWidth="150.0" promptText="Product Category" styleClass="stockButtons">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
+               </VBox>
+            </Pane>
+            <Pane layoutX="401.0" layoutY="35.0" prefHeight="507.0" prefWidth="286.0" styleClass="stockFrontPanes">
+               <Button layoutX="208.0" layoutY="212.0" mnemonicParsing="false" onAction="#setCostPrice" prefHeight="26.0" prefWidth="68.0" styleClass="stockButtons" text="change" />
+               <TextField fx:id="changeCostPriceId" layoutX="23.0" layoutY="212.0" prefHeight="26.0" prefWidth="85.0" promptText="Product Id" styleClass="stockFields" />
+               <Label layoutX="80.0" layoutY="162.0" prefHeight="16.0" prefWidth="213.0" text="Change Cost Price Of " />
+               <Label layoutX="96.0" layoutY="186.0" prefHeight="16.0" prefWidth="213.0" text="Existing Product" />
+               <Label layoutX="80.0" layoutY="301.0" prefHeight="16.0" prefWidth="213.0" text="Change Selling Price Of " />
+               <Label layoutX="101.0" layoutY="323.0" prefHeight="16.0" prefWidth="213.0" text="Existing Product" />
+               <TextField fx:id="changeSellingPriceId" layoutX="24.0" layoutY="348.0" prefHeight="26.0" prefWidth="85.0" promptText="Product Id" styleClass="stockFields" />
+               <Button layoutX="208.0" layoutY="348.0" mnemonicParsing="false" onAction="#setSellingPrice" prefHeight="26.0" prefWidth="68.0" styleClass="stockButtons" text="Change" />
+               <Label layoutX="90.0" layoutY="25.0" prefHeight="16.0" prefWidth="83.0" text="New Stock" />
+               <TextField fx:id="stockItermId" layoutX="23.0" layoutY="67.0" prefHeight="26.0" prefWidth="101.0" promptText="Product Id" styleClass="stockFields" />
+               <TextField fx:id="stockQuantity" layoutX="136.0" layoutY="67.0" prefHeight="26.0" prefWidth="83.0" promptText="Quantity" styleClass="stockFields" />
+               <Button layoutX="234.0" layoutY="64.0" mnemonicParsing="false" onAction="#newStock" prefHeight="22.0" prefWidth="24.0" styleClass="stockButtons">
+                  <graphic>
+                     <ImageView fitHeight="22.0" fitWidth="24.0">
+                        <Image url="@../icons/icons8-add-100.png" />
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <TextField fx:id="changeCostPrice" layoutX="118.0" layoutY="212.0" prefHeight="26.0" prefWidth="83.0" promptText="New Price" styleClass="stockFields" />
+               <TextField fx:id="changeSellingPrice" layoutX="117.0" layoutY="348.0" prefHeight="26.0" prefWidth="85.0" promptText="New Price" styleClass="stockFields" />
+            </Pane>
+            <Pane layoutX="777.0" layoutY="35.0" prefHeight="507.0" prefWidth="272.0" styleClass="stockFrontPanes">
+               <TextField fx:id="drawingsIdField" layoutX="23.0" layoutY="201.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="stockFields" />
+               <TextField fx:id="drawingsQuantityField" layoutX="23.0" layoutY="254.0" prefHeight="26.0" prefWidth="227.0" promptText="Quantity" styleClass="stockFields" />
+               <Button layoutX="115.0" layoutY="457.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="29.0" prefWidth="45.0" styleClass="stockButtons">
+                  <graphic>
+                     <ImageView fitHeight="26.0" fitWidth="27.0">
+                        <Image url="@../icons/icons8-delete-52.png" />
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Label layoutX="68.0" layoutY="153.0" text="Damages / Drawings" />
+               <Label layoutX="78.0" layoutY="34.0" text="Add new Catecory" />
+               <TextField fx:id="addCategoryField" layoutX="23.0" layoutY="73.0" prefHeight="26.0" prefWidth="150.0" promptText="Category Name" styleClass="stockFields" />
+               <Button layoutX="197.0" layoutY="69.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="26.0" prefWidth="52.0" styleClass="stockButtons">
+                  <graphic>
+                     <ImageView fitHeight="25.0" fitWidth="25.0">
+                        <Image url="@../icons/icons8-add-100.png" />
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Label fx:id="deleteLabel" layoutX="81.0" layoutY="361.0" text="Delete a Product" textFill="RED" />
+               <TextField fx:id="deleteItemField" layoutX="24.0" layoutY="395.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="stockFields" />
+               <Button layoutX="105.0" layoutY="301.0" mnemonicParsing="false" onAction="#damagesDrawings" styleClass="stockButtons" text="Submit" />
+            </Pane>
+         </Pane>
+         <Pane fx:id="paneDashboard" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane layoutX="63.0" layoutY="41.0" prefHeight="523.0" prefWidth="640.0" style="-fx-background-color: white;" styleClass="stockFrontPanes">
+               <Label layoutX="290.0" layoutY="28.0" text="New Sale" />
+               <TextField fx:id="makeSaleItemId" layoutX="31.0" layoutY="68.0" prefHeight="26.0" prefWidth="258.0" promptText="Iterm Id" styleClass="stockFields" />
+               <TextField fx:id="makeSaleQuantity" layoutX="320.0" layoutY="68.0" prefHeight="26.0" prefWidth="184.0" promptText="Quantity" styleClass="stockFields" />
+               <Button layoutX="549.0" layoutY="68.0" mnemonicParsing="false" onAction="#makeSale" prefHeight="26.0" prefWidth="61.0" styleClass="stockButtons" text="ok" />
+               <Label fx:id="errorLabel" layoutX="54.0" layoutY="396.0" prefHeight="16.0" prefWidth="167.0" textFill="RED" />
+               <Label fx:id="successLabel" layoutX="100.0" layoutY="412.0" prefHeight="16.0" prefWidth="60.0" textFill="RED" />
+               <Label fx:id="nameItem" layoutX="36.0" layoutY="116.0" text="name" />
+               <Label fx:id="priceItem" layoutX="212.0" layoutY="117.0" text="\$" />
+               <Label layoutX="293.0" layoutY="117.0" text="x" />
+               <Label fx:id="saleQuantity" layoutX="309.0" layoutY="117.0" />
+               <Label layoutX="379.0" layoutY="117.0" text="Total" />
+               <Label fx:id="saleTotal" layoutX="447.0" layoutY="117.0" />
+               <ScrollPane layoutX="14.0" layoutY="155.0" prefHeight="321.0" prefWidth="613.0">
+                  <content>
+                     <TableView fx:id="receiptDataTableView" prefHeight="319.0" prefWidth="611.0">
+                       <columns>
+                         <TableColumn fx:id="receiptItemName" prefWidth="235.0" styleClass="remake" text="Iterm Name" />
+                         <TableColumn fx:id="receiptItemPrice" prefWidth="155.0" styleClass="remake" text="Quantity" />
+                           <TableColumn fx:id="receiptItemQuantity" prefWidth="111.0" styleClass="remake" text="Price" />
+                           <TableColumn fx:id="receiptItemTotal" prefWidth="106.0" styleClass="remake" text="Total" />
+                       </columns>
+                     </TableView>
+                  </content>
+               </ScrollPane>
+               <Button fx:id="shake" layoutX="30.0" layoutY="483.0" mnemonicParsing="false" onAction="#validateSale" styleClass="stockButtons" text="Make Sale" />
+               <Label layoutX="264.0" layoutY="492.0" text="Receipt Total:" />
+               <Label fx:id="calTotal" layoutX="379.0" layoutY="488.0" prefHeight="16.0" prefWidth="258.0" style="-fx-text-fill: red;" text="0.00000000000000">
+                  <font>
+                     <Font size="19.0" />
+                  </font>
+               </Label>
+               <Label layoutX="361.0" layoutY="488.0" prefHeight="24.0" prefWidth="18.0" style="-fx-text-fill: red;" text="\$">
+                  <font>
+                     <Font size="19.0" />
+                  </font>
+               </Label>
+               <Button layoutX="138.0" layoutY="483.0" mnemonicParsing="false" onAction="#clearReceipt" styleClass="stockButtons" text="Clear" />
+            </Pane>
+            <Pane layoutX="863.0" layoutY="47.0" prefHeight="90.0" prefWidth="184.0" style="-fx-background-color: white;" styleClass="stockFrontPanes">
+               <Label fx:id="productsRunningLow" prefHeight="90.0" prefWidth="90.0" style="-fx-text-fill: red;" text="35">
+                  <font>
+                     <Font size="68.0" />
+                  </font>
+               </Label>
+               <VBox layoutX="99.0" layoutY="13.0" prefHeight="65.0" prefWidth="83.0">
+                  <Label text="Products">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Running low">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="on stock">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </VBox>
+               <effect>
+                  <DropShadow color="#e40808" height="48.32" radius="24.4825" width="51.61" />
+               </effect>
+            </Pane>
+            <Pane layoutX="831.0" layoutY="176.0" prefHeight="333.0" prefWidth="247.0" styleClass="stockFrontPanes">
+               <VBox layoutX="14.0" layoutY="131.0" prefHeight="164.0" prefWidth="37.0">
+                  <Button fx:id="one" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="1">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="four" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="4">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="seven" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="7">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="zero" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="0">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </VBox>
+               <VBox layoutX="67.0" layoutY="131.0" prefHeight="150.0" prefWidth="37.0">
+                  <Button fx:id="two" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="2">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="five" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="5">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="eight" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="8">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="comma" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text=".">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </VBox>
+               <VBox layoutX="129.0" layoutY="131.0" prefHeight="151.0" prefWidth="37.0">
+                  <Button fx:id="three" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="3">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="six" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="6">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="nine" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="9">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="multiply" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="x">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </VBox>
+               <VBox layoutX="193.0" layoutY="131.0" prefHeight="164.0" prefWidth="37.0">
+                  <Button fx:id="plus" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="+">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="minus" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="-">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="divide" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="/">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="equall" layoutX="10.0" layoutY="88.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="=">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </VBox>
+               <Button fx:id="clear" layoutX="129.0" layoutY="295.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="101.0" styleClass="stockButtons" text="Clear" />
+               <Pane layoutX="10.0" layoutY="12.0" prefHeight="109.0" prefWidth="227.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-border-color: #777b7e;">
+                  <Label fx:id="answerLabel" alignment="CENTER" prefHeight="65.0" prefWidth="227.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="numberLabel" alignment="CENTER_RIGHT" layoutX="7.0" layoutY="87.0" prefHeight="16.0" prefWidth="213.0" />
+               </Pane>
+            </Pane>
+         </Pane>
+         <Pane fx:id="reportsPane" layoutY="-8.0" prefHeight="603.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
+            <Button fx:id="loadPieChart" layoutX="565.0" layoutY="560.0" mnemonicParsing="false" onAction="#paneArrange" styleClass="stockButtons" text="PieChart" />
+            <Button layoutX="712.0" layoutY="560.0" mnemonicParsing="false" styleClass="stockButtons" text="Product Report" />
+            <Button fx:id="loadLineChart" layoutX="404.0" layoutY="560.0" mnemonicParsing="false" onAction="#paneArrange" styleClass="stockButtons" text="line Chart" />
+            <Button fx:id="filterSalesButton" layoutX="239.0" layoutY="560.0" mnemonicParsing="false" onAction="#paneArrange" styleClass="stockButtons" text="Filter Sales" />
+            <Pane fx:id="Pane1" layoutX="4.0" layoutY="-8.0" prefHeight="558.0" prefWidth="1089.0" style="-fx-background-color: white;">
+               <Pane fx:id="Pane121" layoutX="13.0" layoutY="7.0" prefHeight="551.0" prefWidth="1080.0" style="-fx-background-color: green;" />
+               <Pane fx:id="filterSalesPane" layoutX="7.0" layoutY="-4.0" prefHeight="564.0" prefWidth="1087.0" style="-fx-background-color: white;">
+                  <ScrollPane layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="1080.0">
+                     <TableView fx:id="salesTable2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="1078.0">
+                        <columns>
+                           <TableColumn fx:id="salesDate2" prefWidth="138.0" styleClass="remake" text="Date" />
+                           <TableColumn fx:id="salesId2" prefWidth="85.0" styleClass="remake" text="sales ID" />
+                           <TableColumn fx:id="itermId2" prefWidth="129.0" styleClass="remake" text="product ID" />
+                           <TableColumn fx:id="columnSalesItemName2" prefWidth="252.0" styleClass="remake" text="Product Name" />
+                           <TableColumn fx:id="columnSalesCategory2" prefWidth="139.0" styleClass="remake" text="Category" />
+                           <TableColumn fx:id="quan2" prefWidth="75.0" styleClass="remake" text="Quantity" />
+                           <TableColumn fx:id="columnSalesSellingPrice2" prefWidth="103.0" styleClass="remake" text="Selling Price" />
+                           <TableColumn fx:id="columnSalestotal2" prefWidth="103.0" styleClass="remake" text="Total Price" />
+                           <TableColumn prefWidth="78.0" styleClass="remake" text="returns" />
+                        </columns>
+                     </TableView>
+                  </ScrollPane>
+                  <DatePicker fx:id="startDate" layoutX="32.0" layoutY="521.0" promptText="Start Date" />
+                  <DatePicker fx:id="endDate" layoutX="268.0" layoutY="521.0" promptText="End Date" />
+                  <ComboBox fx:id="salesByComboBox" layoutX="716.0" layoutY="521.0" prefWidth="150.0" promptText="Sales By" styleClass="stockButtons" />
+                  <TextField fx:id="searchItemId" layoutX="502.0" layoutY="521.0" promptText="Iterm Id" styleClass="stockFields" />
+                  <Button layoutX="916.0" layoutY="521.0" mnemonicParsing="false" onAction="#filterSales" prefHeight="26.0" prefWidth="68.0" styleClass="stockButtons" text="Search" />
+                  <RadioButton fx:id="checkStartDate" layoutX="237.0" layoutY="525.0" mnemonicParsing="false" selected="true" styleClass="stockButtons">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="filters" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="checkEndDate" layoutX="475.0" layoutY="525.0" mnemonicParsing="false" styleClass="stockButtons" toggleGroup="$filters" />
+                  <RadioButton fx:id="checkItemId" layoutX="687.0" layoutY="525.0" mnemonicParsing="false" styleClass="stockButtons" toggleGroup="$filters" />
+                  <RadioButton fx:id="checkSalesBy" layoutX="880.0" layoutY="525.0" mnemonicParsing="false" styleClass="stockButtons" toggleGroup="$filters" />
+               </Pane>
+               <Pane fx:id="piePane" layoutX="6.0" layoutY="-3.0" prefHeight="564.0" prefWidth="1087.0" style="-fx-background-color: white;">
+                  <Label layoutX="737.0" layoutY="58.0" prefHeight="65.0" prefWidth="142.0" text="Total Sales:">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sumSales" layoutX="906.0" layoutY="76.0" prefHeight="29.0" prefWidth="184.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="736.0" layoutY="123.0" prefHeight="52.0" prefWidth="167.0" text="Total Costs:">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="737.0" layoutY="189.0" text="Gross Profit:">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="costs" layoutX="906.0" layoutY="127.0" prefHeight="45.0" prefWidth="178.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="grossProfit" layoutX="906.0" layoutY="188.0" prefHeight="32.0" prefWidth="184.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="737.0" layoutY="240.0" text="Items Sold:">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalItems" layoutX="906.0" layoutY="240.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <PieChart fx:id="pieChart" layoutX="3.0" layoutY="2.0" prefHeight="492.0" prefWidth="666.0" />
+                  <Button layoutX="60.0" layoutY="511.0" mnemonicParsing="false" onAction="#setPieChartData" styleClass="stockButtons" text="refresh" />
+               </Pane>
+               <Pane fx:id="lineChartPane" layoutX="12.0" prefHeight="551.0" prefWidth="1080.0" style="-fx-background-color: gray;">
+                  <LineChart fx:id="lineChart" layoutX="5.0" prefHeight="564.0" prefWidth="795.0" title="sales">
+                     <xAxis>
+                        <CategoryAxis prefHeight="33.0" prefWidth="927.0" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  <Pane layoutX="825.0" layoutY="41.0" prefHeight="479.0" prefWidth="247.0" style="-fx-background-color: white;">
+                     <VBox layoutX="-2.0" layoutY="-2.0" prefHeight="479.0" prefWidth="247.0">
+                        <Button mnemonicParsing="false" onAction="#lineChart" prefHeight="50.0" prefWidth="264.0" text="Monthly sales Sales And Costs">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="36.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="88.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Button>
+                     </VBox>
+                  </Pane>
+               </Pane>
+            </Pane>
+         </Pane>
+      </AnchorPane>
+   </AnchorPane>
+   <Pane layoutX="232.0" layoutY="22.0" prefHeight="45.0" prefWidth="1122.0" styleClass="serchPane">
+      <TextField layoutX="880.0" layoutY="10.0" prefHeight="26.0" prefWidth="178.0" promptText="seach" styleClass="seachField" />
+      <Button layoutX="1058.0" layoutY="10.0" mnemonicParsing="false" styleClass="vboxbutton" text="ok" />
+      <Label fx:id="loggedInAs" layoutX="14.0" prefHeight="45.0" prefWidth="316.0" />
+   </Pane>
+   <Pane layoutX="35.0" layoutY="34.0" prefHeight="595.0" prefWidth="142.0" style="-fx-border-color: gray;">
+      <VBox layoutX="-1.0" prefHeight="595.0" prefWidth="144.0" style="-fx-border-color: gray;" styleClass="vboxbutton">
+         <Button fx:id="dashboard" alignment="CENTER" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="158.0" styleClass="vboxbutton" text="Dashboad">
+            <graphic>
+               <ImageView fitHeight="26.0" fitWidth="33.0">
+                  <Image url="@../icons/icons8-home-128.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+         <Separator cache="true" layoutX="11.0" layoutY="140.0" prefWidth="90.0" />
+         <Button fx:id="salesButton" alignment="CENTER" graphicTextGap="25.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="144.0" styleClass="vboxbutton" text="Sales">
+            <graphic>
+               <ImageView fitHeight="26.0" fitWidth="33.0">
+                  <Image url="@../icons/icons8-financial-tasks-64.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+         <Separator cache="true" layoutX="11.0" layoutY="54.0" prefWidth="90.0" />
+         <Button fx:id="inventoryButton" alignment="CENTER" graphicTextGap="10.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="144.0" styleClass="vboxbutton" text="Products">
+            <graphic>
+               <ImageView fitHeight="26.0" fitWidth="33.0">
+                  <Image url="@../icons/icons8-open-box-160.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+         <Separator cache="true" layoutX="11.0" layoutY="187.0" prefWidth="90.0" />
+         <Button fx:id="addInventory" alignment="CENTER" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="160.0" styleClass="vboxbutton" text="Inventory">
+            <graphic>
+               <ImageView fitHeight="26.0" fitWidth="25.0">
+                  <Image url="@../icons/icons8-add-100.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+         <Separator cache="true" layoutX="11.0" layoutY="241.0" prefWidth="90.0" />
+         <Button fx:id="reports" alignment="CENTER_RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="142.0" styleClass="vboxbutton" text="Reports">
+            <graphic>
+               <ImageView fitHeight="42.0" fitWidth="47.0">
+                  <Image url="@../icons/icons8-combo-chart-200.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+         <Separator cache="true" prefWidth="90.0" />
+         <Button fx:id="userButton" graphicTextGap="20.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="154.0" styleClass="vboxbutton" text="Users">
+            <graphic>
+               <ImageView fitHeight="45.0" fitWidth="45.0">
+                  <Image url="@../icons/icons8-user-male-512.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+         <Separator cache="true" layoutX="11.0" layoutY="243.0" prefWidth="90.0" />
+         <Button fx:id="logoutButton" graphicTextGap="15.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" prefWidth="154.0" style="-fx-border-width: 1 0 0 0; -fx-border-color: gray;" styleClass="vboxbutton" text="Log Out">
+            <VBox.margin>
+               <Insets top="236.0" />
+            </VBox.margin>
+            <graphic>
+               <ImageView fitHeight="40.0" fitWidth="40.0">
+                  <Image url="@../icons/icons8-user-96.png" />
+               </ImageView>
+            </graphic>
+         </Button>
+      </VBox>
+   </Pane>
+</AnchorPane>
