@@ -6,8 +6,8 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
@@ -16,27 +16,281 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1366.0" style="-fx-background-color: #d9dddc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.UserController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <Label layoutX="108.0" layoutY="79.0" prefHeight="37.0" prefWidth="116.0" text="Label" />
-      <AnchorPane layoutX="241.0" layoutY="67.0" prefHeight="595.0" prefWidth="1101.0">
+      <HBox fx:id="hBox" prefHeight="435.0" prefWidth="638.0">
          <children>
-            <AnchorPane layoutX="3.0" prefHeight="595.0" prefWidth="1101.0">
+            <Pane prefHeight="600.0" prefWidth="245.0" style="-fx-background-color: red;">
                <children>
-                  <Pane fx:id="paneEditInventory" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ImageView fx:id="image" fitHeight="600.0" fitWidth="245.0">
+                     <image>
+                        <Image url="@../icons/strip3.png" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="-1.0" layoutY="246.0" opacity="0.61" prefHeight="160.0" prefWidth="245.0" style="-fx-background-color: #fff;" />
+                  <Circle fx:id="circle" fill="WHITE" layoutX="123.0" layoutY="114.0" radius="100.0" stroke="WHITE" strokeType="INSIDE">
+                     <effect>
+                        <DropShadow color="WHITE" height="54.04" radius="36.475" width="93.86" />
+                     </effect></Circle>
+                  <VBox layoutX="-1.0" layoutY="246.0" prefHeight="168.0" prefWidth="245.0">
                      <children>
-                        <Pane layoutX="42.0" layoutY="35.0" prefHeight="507.0" prefWidth="272.0" styleClass="stockFrontPanes">
+                        <Button fx:id="dashboard" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" styleClass="leftButtons" text="Dash Board" />
+                        <Button fx:id="salesButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" styleClass="leftButtons" text="View Sales" />
+                        <Button fx:id="inventoryButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" styleClass="leftButtons" text="View Products" />
+                        <Button fx:id="addInventory" alignment="TOP_LEFT" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" styleClass="leftButtons" text="Manage Iventory" />
+                        <Button fx:id="reports" alignment="TOP_LEFT" layoutX="10.0" layoutY="88.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" styleClass="leftButtons" text="View Reports" />
+                        <Button fx:id="userButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="114.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="253.0" styleClass="leftButtons" text="User Management" />
+                     </children>
+                  </VBox>
+                  <Pane layoutX="1.0" layoutY="423.0" opacity="0.59" prefHeight="32.0" prefWidth="245.0" style="-fx-background-color: #fff;">
+                     <children>
+                        <Label layoutX="44.0" layoutY="8.0" text="Logged Account Details" />
+                     </children>
+                  </Pane>
+                  <VBox layoutX="1.0" layoutY="455.0" prefHeight="110.0" prefWidth="245.0">
+                     <children>
+                        <Pane opacity="0.76" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                            <children>
-                              <Button layoutX="108.0" layoutY="457.0" mnemonicParsing="false" onAction="#addIterm" prefHeight="23.0" prefWidth="57.0" styleClass="stockButtons">
+                              <VBox layoutX="7.0" layoutY="-2.0" prefHeight="110.0" prefWidth="75.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="2.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <Text layoutX="10.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <Text layoutX="10.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acc Type">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="85.0" prefHeight="110.0" prefWidth="75.0">
+                                 <children>
+                                    <Label fx:id="loggedInAs" text="Name">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label fx:id="loggedInAsSurname" layoutX="10.0" layoutY="10.0" text="Surname">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label fx:id="loggedInAsUserName" layoutX="10.0" layoutY="26.0" text="Username">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label fx:id="loggedInAsAccType" layoutX="10.0" layoutY="42.0" text="Acc Type">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children></VBox>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+                  <Button layoutX="1.0" layoutY="564.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.5" styleClass="buttons" text="Account" />
+                  <Button fx:id="logoutButton" layoutX="122.0" layoutY="564.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.5" styleClass="buttons" text="Logout" />
+               </children>
+            </Pane>
+            <StackPane prefHeight="600.0" prefWidth="955.0">
+               <children>
+                  <Pane fx:id="paneItems" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <ImageView fitHeight="600.0" fitWidth="955.0">
+                           <image>
+                              <Image url="@../icons/sales.png" />
+                           </image>
+                        </ImageView>
+                        <ScrollPane layoutX="14.0" layoutY="7.0" opacity="0.87" prefHeight="588.0" prefWidth="934.0">
+                           <content>
+                              <TableView fx:id="items" prefHeight="586.0" prefWidth="932.0">
+                                 <columns>
+                                    <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                                    <TableColumn fx:id="name" prefWidth="161.0" text="Product Name" />
+                                    <TableColumn fx:id="category" prefWidth="137.0" text="Category" />
+                                    <TableColumn fx:id="brandColumn" prefWidth="137.0" text="Brand" />
+                                    <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
+                                    <TableColumn fx:id="costPrice" prefWidth="91.0" text="Cost Price" />
+                                    <TableColumn fx:id="markup" prefWidth="67.0" text="MarkUp" />
+                                    <TableColumn fx:id="sellingPrice" prefWidth="105.0" text="Selling Price" />
+                                    <TableColumn fx:id="damaged" text="Damages" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                     </children></Pane>
+                  <Pane fx:id="paneSales" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+                     <children>
+                        <ImageView fitHeight="600.0" fitWidth="955.0">
+                           <image>
+                              <Image url="@../icons/sales.png" />
+                           </image>
+                        </ImageView>
+                        <ScrollPane layoutX="14.0" layoutY="6.0" opacity="0.87" prefHeight="588.0" prefWidth="934.0">
+                           <content>
+                              <TableView fx:id="salesTable" prefHeight="586.0" prefWidth="932.0">
+                                 <columns>
+                                    <TableColumn fx:id="salesDate" prefWidth="179.0" text="Date" />
+                                    <TableColumn fx:id="salesId" prefWidth="87.0" text="Sales Id" />
+                                    <TableColumn fx:id="itermId" prefWidth="93.0" text="Product Id" />
+                                    <TableColumn fx:id="columnSalesItemName" prefWidth="133.0" text="Product Name" />
+                                    <TableColumn fx:id="columnSalesCategory" prefWidth="103.0" text="Category" />
+                                    <TableColumn fx:id="quan" prefWidth="73.0" text="Quantity" />
+                                    <TableColumn fx:id="columnSalesSellingPrice" prefWidth="106.0" text="Selling Price" />
+                                    <TableColumn fx:id="columnSalestotal" text="Total" />
+                                    <TableColumn fx:id="columnReceiptNumber" prefWidth="77.0" text="Receipt #" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                     </children></Pane>
+                  <Pane fx:id="usersPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+                     <children>
+                        <ImageView fitHeight="600.0" fitWidth="955.0">
+                           <image>
+                              <Image url="@../icons/users.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="600.0" fitWidth="955.0">
+                           <image>
+                              <Image url="@../icons/usersBlur.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="25.0" layoutY="26.0" prefHeight="536.0" prefWidth="405.0" style="-fx-background-color: yellow;" styleClass="panesUsers">
+                           <children>
+                              <ScrollPane prefHeight="536.0" prefWidth="405.0">
+                                 <content>
+                                    <TableView fx:id="loginTable" prefHeight="534.0" prefWidth="402.0">
+                                       <columns>
+                                          <TableColumn fx:id="logedDate" prefWidth="183.0" text="Date &amp; Time" />
+                                          <TableColumn fx:id="logedUser" prefWidth="128.0" text="User Name" />
+                                          <TableColumn fx:id="status" prefWidth="90.0" text="Status" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="462.0" layoutY="26.0" prefHeight="374.0" prefWidth="472.0" style="-fx-background-color: yellow;" styleClass="panesUsers">
+                           <children>
+                              <ScrollPane prefHeight="374.0" prefWidth="472.0">
+                                 <content>
+                                    <TableView fx:id="userTable" prefHeight="372.0" prefWidth="470.0">
+                                       <columns>
+                                          <TableColumn fx:id="userDataNameColumn" prefWidth="117.0" text="First Name" />
+                                          <TableColumn fx:id="userDataSurnameColumn" prefWidth="86.0" text="Last Name" />
+                                          <TableColumn fx:id="userDataUsernameColumn" prefWidth="91.0" text="Username" />
+                                          <TableColumn fx:id="userDataAccessLevelColumn" prefWidth="83.0" text="Acc Type" />
+                                          <TableColumn fx:id="userDataLastLoginColumn" prefWidth="92.0" text="Last Login" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </Pane>
+                        <StackPane layoutX="462.0" layoutY="412.0" prefHeight="150.0" prefWidth="472.0" styleClass="panesUsers">
+                           <children>
+                              <Pane fx:id="paneDeleteUser" prefHeight="148.0" prefWidth="472.0" style="-fx-background-color: #fff;">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="472.0" opacity="0.32">
+                                       <image>
+                                          <Image url="@../icons/usersBlur.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TextField fx:id="deleteUserField" layoutX="29.0" layoutY="49.0" prefHeight="26.0" prefWidth="200.0" promptText="Username" styleClass="textFields" />
+                                    <CheckBox layoutX="30.0" layoutY="92.0" mnemonicParsing="false" text="Tick to delete login History" />
+                                    <Button fx:id="deleteUserButton" layoutX="321.0" layoutY="53.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="101.0" styleClass="buttons" text="Delete" />
+                                    <Button fx:id="deleteUserBackButton" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" styleClass="buttons" text="Button" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="paneCreateUser" prefHeight="148.0" prefWidth="472.0" style="-fx-background-color: #fff;">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="472.0" opacity="0.32">
+                                       <image>
+                                          <Image url="@../icons/usersBlur.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TextField fx:id="createUserNameField" layoutX="14.0" layoutY="20.0" prefWidth="190.0" promptText="First Name" styleClass="textFields" />
+                                    <TextField fx:id="createUserUserNameField" layoutX="14.0" layoutY="64.0" prefWidth="190.0" promptText="Username" styleClass="textFields" />
+                                    <TextField fx:id="createUserLastNameField" layoutX="256.0" layoutY="20.0" prefWidth="190.0" promptText="Last Name" styleClass="textFields" />
+                                    <ComboBox fx:id="accessLevelCombo" layoutX="14.0" layoutY="108.0" prefHeight="26.0" prefWidth="190.0" promptText="Account Type" styleClass="buttons" />
+                                    <Button fx:id="cancelCreateUserButton" layoutX="256.0" layoutY="108.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" styleClass="buttons" text="Cancel" />
+                                    <PasswordField fx:id="createUserPasswordField" layoutX="256.0" layoutY="64.0" prefHeight="26.0" prefWidth="190.0" promptText="Password" styleClass="textFields" />
+                                    <Button fx:id="createUserButton" layoutX="355.0" layoutY="108.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" styleClass="buttons" text="Create" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="createDeletePane" prefHeight="148.0" prefWidth="472.0" style="-fx-background-color: #fff;">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="472.0" opacity="0.32">
+                                       <image>
+                                          <Image url="@../icons/usersBlur.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button fx:id="createUSER" layoutX="29.0" layoutY="28.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="187.0" styleClass="buttons" text="Create User" />
+                                    <Button fx:id="deleteUSER" layoutX="265.0" layoutY="28.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="187.0" styleClass="buttons" text="Delete User" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </children></Pane>
+                  <Pane fx:id="paneEditInventory" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <ImageView fitHeight="600.0" fitWidth="955.0">
+                           <image>
+                              <Image url="@../icons/salesBlur.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="14.0" layoutY="29.0" prefHeight="542.0" prefWidth="293.0" style="-fx-background-color: #fff;" styleClass="panes">
+                           <children>
+                              <ImageView fitHeight="542.0" fitWidth="293.0" opacity="0.25">
+                                 <image>
+                                    <Image url="@../icons/pane1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="83.0" layoutY="21.0" text="Add New Product" />
+                              <TextField fx:id="idField" layoutX="25.0" layoutY="73.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="textFields" />
+                              <TextField fx:id="nameField" layoutX="25.0" layoutY="125.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Name" styleClass="textFields" />
+                              <TextField fx:id="costPriceField" layoutX="25.0" layoutY="229.0" prefHeight="26.0" prefWidth="227.0" promptText="Cost Price" styleClass="textFields" />
+                              <TextField fx:id="markupField" layoutX="25.0" layoutY="281.0" prefHeight="26.0" prefWidth="227.0" promptText="Mark Up" styleClass="textFields" />
+                              <TextField fx:id="sellingPriceField" layoutX="25.0" layoutY="333.0" prefHeight="26.0" prefWidth="227.0" promptText="Seling Price" styleClass="textFields" />
+                              <TextField fx:id="quantityField" layoutX="25.0" layoutY="177.0" prefHeight="26.0" prefWidth="227.0" promptText="Quantity" styleClass="textFields" />
+                              <TextField fx:id="brand" layoutX="25.0" layoutY="385.0" prefHeight="26.0" prefWidth="227.0" promptText="Brand" styleClass="textFields" />
+                              <ComboBox fx:id="categoryField" layoutX="25.0" layoutY="437.0" prefHeight="26.0" prefWidth="187.0" promptText="Product Category" styleClass="buttons" />
+                              <Button fx:id="addItemButton" layoutX="118.0" layoutY="493.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="57.0" styleClass="buttons">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0">
                                        <image>
@@ -45,68 +299,18 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Label layoutX="83.0" layoutY="24.0" text="Add New Product" />
-                              <VBox layoutX="8.0" layoutY="54.0" prefHeight="365.0" prefWidth="258.0">
-                                 <children>
-                                    <TextField fx:id="idField" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="nameField" prefHeight="26.0" prefWidth="227.0" promptText="Product Name" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="costPriceField" prefHeight="26.0" prefWidth="227.0" promptText="Cost Price" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="markupField" prefHeight="26.0" prefWidth="227.0" promptText="Mark Up" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="sellingPriceField" prefHeight="26.0" prefWidth="227.0" promptText="Seling Price" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="quantityField" prefHeight="26.0" prefWidth="227.0" promptText="Quantity" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="brand" layoutX="10.0" layoutY="265.0" prefHeight="26.0" prefWidth="227.0" promptText="Brand" styleClass="stockFields">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <ComboBox fx:id="categoryField" prefWidth="150.0" promptText="Product Category" styleClass="stockButtons">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </ComboBox>
-                                 </children>
-                              </VBox>
-                              <Label fx:id="addProductStatusLabel" alignment="CENTER" layoutX="56.0" layoutY="430.0" prefHeight="16.0" prefWidth="141.0" text="Label" />
-                           </children>
-                        </Pane>
-                        <Pane layoutX="401.0" layoutY="35.0" prefHeight="507.0" prefWidth="286.0" styleClass="stockFrontPanes">
+                           </children></Pane>
+                        <Pane layoutX="331.0" layoutY="29.0" prefHeight="542.0" prefWidth="293.0" style="-fx-background-color: #fff;" styleClass="panes">
                            <children>
-                              <Button layoutX="208.0" layoutY="212.0" mnemonicParsing="false" onAction="#setCostPrice" prefHeight="26.0" prefWidth="68.0" styleClass="stockButtons" text="change" />
-                              <TextField fx:id="changeCostPriceId" layoutX="23.0" layoutY="212.0" prefHeight="26.0" prefWidth="85.0" promptText="Product Id" styleClass="stockFields" />
-                              <Label layoutX="80.0" layoutY="162.0" prefHeight="16.0" prefWidth="213.0" text="Change Cost Price Of " />
-                              <Label layoutX="96.0" layoutY="186.0" prefHeight="16.0" prefWidth="213.0" text="Existing Product" />
-                              <Label layoutX="80.0" layoutY="301.0" prefHeight="16.0" prefWidth="213.0" text="Change Selling Price Of " />
-                              <Label layoutX="101.0" layoutY="323.0" prefHeight="16.0" prefWidth="213.0" text="Existing Product" />
-                              <TextField fx:id="changeSellingPriceId" layoutX="24.0" layoutY="348.0" prefHeight="26.0" prefWidth="85.0" promptText="Product Id" styleClass="stockFields" />
-                              <Button layoutX="208.0" layoutY="348.0" mnemonicParsing="false" onAction="#setSellingPrice" prefHeight="26.0" prefWidth="68.0" styleClass="stockButtons" text="Change" />
-                              <Label layoutX="90.0" layoutY="25.0" prefHeight="16.0" prefWidth="83.0" text="New Stock" />
-                              <TextField fx:id="stockItermId" layoutX="23.0" layoutY="67.0" prefHeight="26.0" prefWidth="101.0" promptText="Product Id" styleClass="stockFields" />
-                              <TextField fx:id="stockQuantity" layoutX="136.0" layoutY="67.0" prefHeight="26.0" prefWidth="83.0" promptText="Quantity" styleClass="stockFields" />
-                              <Button layoutX="234.0" layoutY="64.0" mnemonicParsing="false" onAction="#newStock" prefHeight="22.0" prefWidth="24.0" styleClass="stockButtons">
+                              <ImageView fitHeight="542.0" fitWidth="293.0" opacity="0.25">
+                                 <image>
+                                    <Image url="@../icons/pane2.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="stockItermId" layoutX="22.0" layoutY="73.0" prefHeight="26.0" prefWidth="135.0" promptText="Product Id" styleClass="textFields" />
+                              <TextField fx:id="stockQuantity" layoutX="188.0" layoutY="73.0" prefHeight="26.0" prefWidth="83.0" promptText="Quantity" styleClass="textFields" />
+                              <Label layoutX="105.0" layoutY="21.0" prefHeight="16.0" prefWidth="83.0" text="New Stock" />
+                              <Button fx:id="addNewStockButton" layoutX="192.0" layoutY="118.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" styleClass="buttons">
                                  <graphic>
                                     <ImageView fitHeight="22.0" fitWidth="24.0">
                                        <image>
@@ -115,27 +319,29 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <TextField fx:id="changeCostPrice" layoutX="118.0" layoutY="212.0" prefHeight="26.0" prefWidth="83.0" promptText="New Price" styleClass="stockFields" />
-                              <TextField fx:id="changeSellingPrice" layoutX="117.0" layoutY="348.0" prefHeight="26.0" prefWidth="85.0" promptText="New Price" styleClass="stockFields" />
+                              <Button fx:id="changeCostPriceButton" layoutX="185.0" layoutY="296.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" styleClass="buttons" text="change" />
+                              <TextField fx:id="changeCostPriceId" layoutX="37.0" layoutY="244.0" prefHeight="26.0" prefWidth="135.0" promptText="Product Id" styleClass="textFields" />
+                              <Label layoutX="79.0" layoutY="191.0" prefHeight="16.0" prefWidth="150.0" text="Change Cost Price Of " />
+                              <Label layoutX="98.0" layoutY="215.0" prefHeight="16.0" prefWidth="111.0" text="Existing Product" />
+                              <TextField fx:id="changeCostPrice" layoutX="185.0" layoutY="244.0" prefHeight="26.0" prefWidth="93.0" promptText="New Price" styleClass="textFields" />
+                              <Label layoutX="82.0" layoutY="364.0" prefHeight="16.0" prefWidth="158.0" text="Change Selling Price Of " />
+                              <Label layoutX="98.0" layoutY="380.0" prefHeight="16.0" prefWidth="111.0" text="Existing Product" />
+                              <TextField fx:id="changeSellingPriceId" layoutX="37.0" layoutY="412.0" prefHeight="26.0" prefWidth="135.0" promptText="Product Id" styleClass="textFields" />
+                              <Button fx:id="changeSellingPriceButton" layoutX="183.0" layoutY="469.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" styleClass="buttons" text="Change" />
+                              <TextField fx:id="changeSellingPrice" layoutX="186.0" layoutY="412.0" prefHeight="26.0" prefWidth="93.0" promptText="New Price" styleClass="textFields" />
+                              <TextField fx:id="purchasePrice" layoutX="22.0" layoutY="121.0" prefHeight="26.0" prefWidth="111.0" promptText="Purchase Price" styleClass="textFields" />
                            </children>
                         </Pane>
-                        <Pane layoutX="777.0" layoutY="35.0" prefHeight="507.0" prefWidth="272.0" styleClass="stockFrontPanes">
+                        <Pane layoutX="648.0" layoutY="29.0" prefHeight="542.0" prefWidth="293.0" style="-fx-background-color: white;" styleClass="panes">
                            <children>
-                              <TextField fx:id="drawingsIdField" layoutX="23.0" layoutY="201.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="stockFields" />
-                              <TextField fx:id="drawingsQuantityField" layoutX="23.0" layoutY="254.0" prefHeight="26.0" prefWidth="227.0" promptText="Quantity" styleClass="stockFields" />
-                              <Button layoutX="115.0" layoutY="457.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="45.0" styleClass="stockButtons">
-                                 <graphic>
-                                    <ImageView fitHeight="26.0" fitWidth="27.0">
-                                       <image>
-                                          <Image url="@../icons/icons8-delete-52.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Label layoutX="68.0" layoutY="153.0" text="Damages / Drawings" />
-                              <Label layoutX="78.0" layoutY="34.0" text="Add new Catecory" />
-                              <TextField fx:id="addCategoryField" layoutX="23.0" layoutY="73.0" prefHeight="26.0" prefWidth="150.0" promptText="Category Name" styleClass="stockFields" />
-                              <Button layoutX="197.0" layoutY="69.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="26.0" prefWidth="52.0" styleClass="stockButtons">
+                              <ImageView fitHeight="542.0" fitWidth="293.0" opacity="0.25">
+                                 <image>
+                                    <Image url="@../icons/pane3.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="87.0" layoutY="21.0" text="Add new Catecory" />
+                              <TextField fx:id="addCategoryField" layoutX="29.0" layoutY="70.0" prefHeight="26.0" prefWidth="150.0" promptText="Category Name" styleClass="textFields" />
+                              <Button fx:id="addNewCategoryButton" layoutX="220.0" layoutY="66.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="52.0" styleClass="buttons">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0">
                                        <image>
@@ -144,241 +350,166 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Label fx:id="deleteLabel" layoutX="81.0" layoutY="361.0" text="Delete a Product" textFill="RED" />
-                              <TextField layoutX="24.0" layoutY="395.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="stockFields" />
-                              <Button layoutX="105.0" layoutY="301.0" mnemonicParsing="false" onAction="#damagesDrawings" styleClass="stockButtons" text="Submit" />
+                              <TextField fx:id="drawingsIdField" layoutX="31.0" layoutY="203.0" prefHeight="26.0" prefWidth="126.0" promptText="Product Id" styleClass="textFields" />
+                              <TextField fx:id="drawingsQuantityField" layoutX="169.0" layoutY="203.0" prefHeight="26.0" prefWidth="101.0" promptText="Quantity" styleClass="textFields" />
+                              <Label layoutX="78.0" layoutY="150.0" text="Damages / Drawings" />
+                              <Button fx:id="addDrawingsButton" layoutX="179.0" layoutY="255.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" styleClass="buttons" text="Submit" />
+                              <Button fx:id="deleteItemButton" layoutX="124.0" layoutY="457.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="45.0" styleClass="buttons">
+                                 <graphic>
+                                    <ImageView fitHeight="26.0" fitWidth="27.0">
+                                       <image>
+                                          <Image url="@../icons/icons8-delete-52.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label fx:id="deleteLabel" layoutX="92.0" layoutY="346.0" text="Delete a Product" textFill="RED" />
+                              <TextField fx:id="deleteItemField" layoutX="33.0" layoutY="390.0" prefHeight="26.0" prefWidth="227.0" promptText="Product Id" styleClass="textFields" />
                            </children>
                         </Pane>
                      </children>
                   </Pane>
-                  <Pane fx:id="usersPane" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane fx:id="reportsPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
                      <children>
-                        <Pane fx:id="Pane11" layoutX="50.0" layoutY="43.0" prefHeight="507.0" prefWidth="272.0" style="-fx-background-color: crimson;" styleClass="stockFrontPanes" />
-                        <Pane fx:id="Pane111" layoutX="392.0" layoutY="43.0" prefHeight="507.0" prefWidth="658.0" styleClass="stockFrontPanes">
+                        <ImageView fitHeight="600.0" fitWidth="955.0">
+                           <image>
+                              <Image url="@../icons/salesBlur.png" />
+                           </image>
+                        </ImageView>
+                        <StackPane layoutX="14.0" layoutY="6.0" prefHeight="527.0" prefWidth="927.0">
                            <children>
-                              <Button layoutX="296.0" layoutY="446.0" mnemonicParsing="false" onAction="#createUser" styleClass="stockButtons" text="Crreate" />
-                              <TableView fx:id="userTable" prefHeight="297.0" prefWidth="658.0">
-                                 <columns>
-                                    <TableColumn fx:id="userDataNameColumn" prefWidth="132.0" styleClass="remake" text="First Name" />
-                                    <TableColumn fx:id="userDataSurnameColumn" prefWidth="135.0" styleClass="remake" text="Last Name" />
-                                    <TableColumn fx:id="userDataUsernameColumn" prefWidth="144.0" styleClass="remake" text="User Name" />
-                                    <TableColumn fx:id="userDataAccessLevelColumn" prefWidth="119.0" styleClass="remake" text="A/C Level" />
-                                    <TableColumn fx:id="userDataLastLoginColumn" prefWidth="126.0" styleClass="remake" text="Last Login" />
-                                 </columns>
-                              </TableView>
-                              <TextField fx:id="createUserNameField" layoutX="30.0" layoutY="357.0" promptText="First Name" styleClass="stockFields" />
-                              <TextField fx:id="createUserUserNameField" layoutX="30.0" layoutY="404.0" promptText="User Name" styleClass="stockFields" />
-                              <TextField fx:id="createUserLastNameField" layoutX="244.0" layoutY="357.0" promptText="Last Name" styleClass="stockFields" />
-                              <ComboBox fx:id="accessLevelCombo" layoutX="30.0" layoutY="446.0" prefWidth="150.0" promptText="A/C Level" styleClass="stockButtons" />
-                              <Label layoutX="200.0" layoutY="318.0" text="Add User" />
-                              <Label layoutX="506.0" layoutY="318.0" text="Delete User" />
-                              <TextField fx:id="deleteUserField" layoutX="459.0" layoutY="357.0" promptText="User Name" styleClass="stockFields" />
-                              <Button layoutX="513.0" layoutY="446.0" mnemonicParsing="false" onAction="#deleteUser" styleClass="stockButtons" text="Delete" />
-                              <PasswordField fx:id="createUserPasswordField" layoutX="244.0" layoutY="404.0" promptText="Password" styleClass="stockFields" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="paneItems" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: green;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1101.0">
-                           <content>
-                              <TableView fx:id="items" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1099.0">
-                                 <columns>
-                                    <TableColumn fx:id="id" prefWidth="67.0" styleClass="remake" text="ID" />
-                                    <TableColumn fx:id="name" prefWidth="204.0" styleClass="remake" text="Product Name" />
-                                    <TableColumn fx:id="category" prefWidth="150.0" styleClass="remake" text="Category" />
-                                    <TableColumn fx:id="brandColumn" prefWidth="151.0" styleClass="remake" text="Brand" />
-                                    <TableColumn fx:id="quantity" prefWidth="79.0" styleClass="remake" text="Quantity" />
-                                    <TableColumn fx:id="costPrice" prefWidth="104.0" styleClass="remake" text="Cost Price" />
-                                    <TableColumn fx:id="markup" prefWidth="139.0" styleClass="remake" text="Mark Up" />
-                                    <TableColumn fx:id="sellingPrice" prefWidth="125.0" styleClass="remake" text="Selling Price" />
-                                    <TableColumn fx:id="damaged" prefWidth="83.0" styleClass="remake" text="Damaged" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="paneSales" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: red;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1101.0">
-                           <content>
-                              <TableView fx:id="salesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="1099.0">
-                                 <columns>
-                                    <TableColumn fx:id="salesDate" prefWidth="138.0" styleClass="remake" text="Date" />
-                                    <TableColumn fx:id="salesId" prefWidth="85.0" styleClass="remake" text="sales ID" />
-                                    <TableColumn fx:id="itermId" prefWidth="86.0" styleClass="remake" text="product ID" />
-                                    <TableColumn fx:id="columnSalesItemName" prefWidth="206.0" styleClass="remake" text="Product Name" />
-                                    <TableColumn fx:id="columnSalesCategory" prefWidth="135.0" styleClass="remake" text="Category" />
-                                    <TableColumn fx:id="quan" prefWidth="142.0" styleClass="remake" text="Quantity" />
-                                    <TableColumn fx:id="columnSalesSellingPrice" prefWidth="111.0" styleClass="remake" text="Selling Price" />
-                                    <TableColumn fx:id="columnSalestotal" prefWidth="112.0" styleClass="remake" text="Total Price" />
-                                    <TableColumn fx:id="columnReceiptNumber" prefWidth="89.0" styleClass="remake" text="Receipt#" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="reportsPane" prefHeight="595.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Button layoutX="684.0" layoutY="560.0" mnemonicParsing="false" styleClass="stockButtons" text="Product Report" />
-                        <Button layoutX="558.0" layoutY="560.0" mnemonicParsing="false" onAction="#lineChart" styleClass="stockButtons" text="line Chart" />
-                        <Button fx:id="filterSalesButton" layoutX="247.0" layoutY="560.0" mnemonicParsing="false" onAction="#paneArrange" styleClass="stockButtons" text="Filter Sales" />
-                        <Pane fx:id="Pane1" layoutX="7.0" layoutY="-8.0" prefHeight="558.0" prefWidth="1093.0" style="-fx-background-color: white;">
-                           <children>
-                              <Pane fx:id="filterSalesPane" layoutX="1.0" layoutY="9.0" prefHeight="551.0" prefWidth="1093.0" style="-fx-background-color: white;">
+                              <Pane fx:id="generatePdfPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
                                  <children>
-                                    <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1093.0">
-                                       <content>
-                                          <TableView fx:id="salesTable2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="1090.0">
-                                             <columns>
-                                                <TableColumn fx:id="salesDate2" prefWidth="138.0" styleClass="remake" text="Date" />
-                                                <TableColumn fx:id="salesId2" prefWidth="85.0" styleClass="remake" text="sales ID" />
-                                                <TableColumn fx:id="itermId2" prefWidth="129.0" styleClass="remake" text="product ID" />
-                                                <TableColumn fx:id="columnSalesItemName2" prefWidth="252.0" styleClass="remake" text="Product Name" />
-                                                <TableColumn fx:id="columnSalesCategory2" prefWidth="139.0" styleClass="remake" text="Category" />
-                                                <TableColumn fx:id="quan2" prefWidth="75.0" styleClass="remake" text="Quantity" />
-                                                <TableColumn fx:id="columnSalesSellingPrice2" prefWidth="103.0" styleClass="remake" text="Selling Price" />
-                                                <TableColumn fx:id="columnSalestotal2" prefWidth="103.0" styleClass="remake" text="Total Price" />
-                                                <TableColumn prefWidth="78.0" styleClass="remake" text="returns" />
-                                             </columns>
-                                          </TableView>
-                                       </content>
-                                    </ScrollPane>
-                                    <DatePicker fx:id="startDate" layoutX="26.0" layoutY="513.0" promptText="Start Date" />
-                                    <DatePicker fx:id="endDate" layoutX="262.0" layoutY="513.0" promptText="End Date" />
-                                    <ComboBox fx:id="salesByComboBox" layoutX="713.0" layoutY="513.0" prefWidth="150.0" promptText="Sales By" styleClass="stockButtons" />
-                                    <TextField fx:id="searchItemId" layoutX="499.0" layoutY="513.0" promptText="Iterm Id" styleClass="stockFields" />
-                                    <Button layoutX="913.0" layoutY="513.0" mnemonicParsing="false" onAction="#filterSales" prefHeight="26.0" prefWidth="68.0" styleClass="stockButtons" text="Search" />
-                                    <RadioButton fx:id="checkStartDate" layoutX="231.0" layoutY="517.0" mnemonicParsing="false" selected="true" styleClass="stockButtons">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="filters" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="checkEndDate" layoutX="472.0" layoutY="517.0" mnemonicParsing="false" styleClass="stockButtons" toggleGroup="$filters" />
-                                    <RadioButton fx:id="checkItemId" layoutX="684.0" layoutY="517.0" mnemonicParsing="false" styleClass="stockButtons" toggleGroup="$filters" />
-                                    <RadioButton fx:id="checkSalesBy" layoutX="877.0" layoutY="517.0" mnemonicParsing="false" styleClass="stockButtons" toggleGroup="$filters" />
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="Pane121" layoutX="8.0" layoutY="7.0" prefHeight="551.0" prefWidth="1076.0" style="-fx-background-color: green;" />
-                              <Pane fx:id="empty" layoutX="7.0" layoutY="10.0" prefHeight="551.0" prefWidth="1076.0" style="-fx-background-color: blue;">
-                                 <children>
-                                    <Label layoutX="737.0" layoutY="58.0" prefHeight="65.0" prefWidth="142.0" text="Total Sales:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="906.0" layoutY="76.0" prefHeight="29.0" prefWidth="184.0" text="Total Sales:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="736.0" layoutY="123.0" prefHeight="52.0" prefWidth="167.0" text="Total Costs:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="737.0" layoutY="189.0" text="Gross Profit:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="906.0" layoutY="127.0" prefHeight="45.0" prefWidth="178.0" text="Total Costs:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="906.0" layoutY="188.0" prefHeight="32.0" prefWidth="184.0" text="Gross Profit:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="737.0" layoutY="240.0" text="Items Sold:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="906.0" layoutY="240.0" text="Items Sold:">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                    <PieChart fx:id="pieChart" layoutX="91.0" layoutY="47.0" />
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="Pane1211" layoutX="10.0" prefHeight="564.0" prefWidth="1076.0" style="-fx-background-color: gray;">
-                                 <children>
-                                    <LineChart fx:id="lineChart" layoutX="5.0" prefHeight="564.0" prefWidth="795.0" title="sales">
-                                       <xAxis>
-                                          <CategoryAxis prefHeight="33.0" prefWidth="927.0" side="BOTTOM" />
-                                       </xAxis>
-                                       <yAxis>
-                                          <NumberAxis side="LEFT" />
-                                       </yAxis>
-                                    </LineChart>
-                                    <Pane layoutX="825.0" layoutY="41.0" prefHeight="479.0" prefWidth="247.0" style="-fx-background-color: white;">
+                                    <ImageView fitHeight="527.0" fitWidth="927.0" opacity="0.59">
+                                       <image>
+                                          <Image url="@../icons/salesBlur.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane layoutX="59.0" layoutY="34.0" prefHeight="460.0" prefWidth="809.0" style="-fx-background-color: transparent;">
                                        <children>
-                                          <VBox layoutX="-2.0" layoutY="-2.0" prefHeight="479.0" prefWidth="247.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Monthly sales Sales And Costs">
-                                                   <VBox.margin>
-                                                      <Insets bottom="30.0" />
-                                                   </VBox.margin>
-                                                </Button>
-                                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
-                                                   <VBox.margin>
-                                                      <Insets bottom="30.0" />
-                                                   </VBox.margin>
-                                                </Button>
-                                                <Button layoutX="10.0" layoutY="36.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
-                                                   <VBox.margin>
-                                                      <Insets bottom="30.0" />
-                                                   </VBox.margin>
-                                                </Button>
-                                                <Button layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
-                                                   <VBox.margin>
-                                                      <Insets bottom="30.0" />
-                                                   </VBox.margin>
-                                                </Button>
-                                                <Button layoutX="10.0" layoutY="88.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="264.0" text="Button">
-                                                   <VBox.margin>
-                                                      <Insets bottom="30.0" />
-                                                   </VBox.margin>
-                                                </Button>
-                                             </children>
-                                          </VBox>
+                                          <Button layoutX="328.0" layoutY="391.0" mnemonicParsing="false" onAction="#generatePdf" prefHeight="32.0" prefWidth="170.0" styleClass="buttons" text="Generate" />
+                                          <TextField fx:id="fileNameField" layoutX="23.0" layoutY="14.0" promptText="File Name" styleClass="textFields" />
+                                          <RadioButton fx:id="productsRadio" layoutX="23.0" layoutY="73.0" mnemonicParsing="false" selected="true" text="Complete Products Document" />
+                                          <Text layoutX="213.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Specify Document name" textAlignment="CENTER" />
+                                          <Separator layoutX="23.0" layoutY="53.0" prefWidth="750.0" style="-fx-background-color: gray;" />
+                                          <RadioButton fx:id="productsCategoryRadio" layoutX="23.0" layoutY="114.0" mnemonicParsing="false" text="Product Category" />
+                                          <ComboBox fx:id="productCategory" layoutX="182.0" layoutY="110.0" prefHeight="26.0" prefWidth="187.0" promptText="Select Category" styleClass="buttons" />
+                                          <Separator layoutX="23.0" layoutY="152.0" prefWidth="750.0" style="-fx-background-color: gray;" />
+                                          <RadioButton fx:id="purchasesRadio" layoutX="23.0" layoutY="171.0" mnemonicParsing="false" text="Compelete Purchases Document" />
+                                          <RadioButton fx:id="purchasesCategoryRadio" layoutX="23.0" layoutY="212.0" mnemonicParsing="false" text="Purchases (Category)" />
+                                          <ComboBox fx:id="purchasesCategory" layoutX="203.0" layoutY="208.0" prefHeight="26.0" prefWidth="164.0" promptText="Select Category" styleClass="buttons" />
+                                          <Separator layoutX="23.0" layoutY="252.0" prefWidth="750.0" style="-fx-background-color: gray;" />
+                                          <RadioButton fx:id="salesRadio" layoutX="23.0" layoutY="268.0" mnemonicParsing="false" text="Compelete Sales Document" />
+                                          <RadioButton fx:id="salesCategoryRadio" layoutX="23.0" layoutY="306.0" mnemonicParsing="false" text="Sales by Category" />
+                                          <ComboBox fx:id="salesCategory" layoutX="203.0" layoutY="302.0" prefHeight="26.0" prefWidth="170.0" promptText="Select Category" styleClass="buttons" />
+                                          <Separator layoutX="23.0" layoutY="347.0" prefWidth="750.0" style="-fx-background-color: gray;" />
+                                          <CheckBox fx:id="purchasesIncludeDate" layoutX="413.0" layoutY="171.0" mnemonicParsing="false" text="start Date" />
+                                          <CheckBox layoutX="638.0" layoutY="171.0" mnemonicParsing="false" text="End Date" />
+                                          <ComboBox fx:id="purchasesMonth" layoutX="413.0" layoutY="208.0" prefWidth="150.0" promptText="Month" styleClass="buttons" />
+                                          <ComboBox fx:id="purchasesYear" layoutX="612.0" layoutY="208.0" prefWidth="150.0" promptText="Year" styleClass="buttons" />
+                                          <CheckBox fx:id="salesIncludeDate" layoutX="413.0" layoutY="268.0" mnemonicParsing="false" text="start Date" />
+                                          <ComboBox fx:id="salesMonth" layoutX="413.0" layoutY="302.0" prefWidth="150.0" promptText="Month" styleClass="buttons" />
+                                          <ComboBox fx:id="salesYear" layoutX="612.0" layoutY="302.0" prefWidth="150.0" promptText="Year" styleClass="buttons" />
                                        </children>
                                     </Pane>
-                                 </children>
-                              </Pane>
+                                 </children></Pane>
+                              <Pane fx:id="lineChartPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+                                 <children>
+                                    <ImageView fitHeight="527.0" fitWidth="927.0" opacity="0.59">
+                                       <image>
+                                          <Image url="@../icons/salesBlur.png" />
+                                       </image>
+                                    </ImageView>
+                                    <LineChart fx:id="lineChart" prefHeight="527.0" prefWidth="741.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <Button layoutX="751.0" layoutY="27.0" mnemonicParsing="false" onAction="#lineChart" prefHeight="36.0" prefWidth="158.0" styleClass="buttons" text="Refresh Chart" />
+                                 </children></Pane>
+                              <Pane fx:id="piePane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <ImageView fitHeight="527.0" fitWidth="927.0" opacity="0.59">
+                                       <image>
+                                          <Image url="@../icons/salesBlur.png" />
+                                       </image>
+                                    </ImageView>
+                                    <PieChart fx:id="pieChart" prefHeight="527.0" prefWidth="628.0" />
+                                    <Button layoutX="687.0" layoutY="14.0" mnemonicParsing="false" onAction="#setPieChartData" prefHeight="36.0" prefWidth="187.0" styleClass="buttons" text="Refresh Chart" />
+                                 </children></Pane>
+                           </children>
+                        </StackPane>
+                        <Button fx:id="loadLineChart" layoutX="266.0" layoutY="549.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="buttons" text="Line Chart" />
+                        <Button fx:id="loadPieChart" layoutX="418.0" layoutY="549.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="buttons" text="Pie Chart" />
+                        <Button fx:id="exportPdfButton" layoutX="572.0" layoutY="549.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="buttons" text="Export Pdf" />
+                     </children></Pane>
+                  <Pane fx:id="paneDashboard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <ImageView fitHeight="600.0" fitWidth="955.0" opacity="0.55">
+                           <image>
+                              <Image url="@../icons/salesBlur.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="39.0" layoutY="29.0" prefHeight="542.0" prefWidth="550.0" style="-fx-background-color: #fff;" styleClass="panes">
+                           <children>
+                              <ImageView fitHeight="542.0" fitWidth="550.0" opacity="0.52">
+                                 <image>
+                                    <Image url="@../icons/salesBlur.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="makeSaleItemId" layoutX="33.0" layoutY="38.0" prefHeight="26.0" prefWidth="237.0" promptText="Item ID" styleClass="textFields" />
+                              <TextField fx:id="makeSaleQuantity" layoutX="310.0" layoutY="38.0" prefHeight="26.0" prefWidth="126.0" promptText="Quantity" styleClass="textFields" />
+                              <Button fx:id="addToReceipt" layoutX="460.0" layoutY="38.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" styleClass="buttons" text="ok" />
+                              <ScrollPane layoutX="33.0" layoutY="110.0" prefHeight="374.0" prefWidth="485.0">
+                                 <content>
+                                    <TableView fx:id="receiptDataTableView" prefHeight="372.0" prefWidth="483.0">
+                                      <columns>
+                                        <TableColumn fx:id="receiptItemName" prefWidth="191.0" text="Iterm Name" />
+                                        <TableColumn fx:id="receiptItemPrice" prefWidth="82.0" text="Quantity" />
+                                          <TableColumn fx:id="receiptItemQuantity" prefWidth="106.0" text="Selling Price" />
+                                          <TableColumn fx:id="receiptItemTotal" prefWidth="103.0" text="Total" />
+                                      </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button fx:id="clearReceipt" layoutX="261.0" layoutY="492.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="112.0" styleClass="buttons" text="Clear" />
+                              <Button fx:id="makeSale" layoutX="407.0" layoutY="492.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="112.0" styleClass="buttons" text="Make Sale" />
+                              <Text layoutX="33.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" />
+                              <Text layoutX="77.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Label fx:id="calTotal" layoutX="95.0" layoutY="500.0" prefHeight="21.0" prefWidth="158.0" text="Label">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </Pane>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="paneDashboard" prefHeight="600.0" prefWidth="1101.0" style="-fx-background-color: white;" styleClass="stockEdit" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Pane layoutX="774.0" layoutY="192.0" prefHeight="333.0" prefWidth="247.0" styleClass="stockFrontPanes">
+                        <Pane layoutX="666.0" layoutY="227.0" prefHeight="333.0" prefWidth="247.0">
                            <children>
                               <VBox layoutX="14.0" layoutY="131.0" prefHeight="164.0" prefWidth="37.0">
                                  <children>
-                                    <Button fx:id="one" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="1">
+                                    <Button fx:id="one" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="1">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="four" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="4">
+                                    <Button fx:id="four" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="4">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="seven" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="7">
+                                    <Button fx:id="seven" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="7">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="zero" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="0">
+                                    <Button fx:id="zero" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="0">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
@@ -387,22 +518,22 @@
                               </VBox>
                               <VBox layoutX="67.0" layoutY="131.0" prefHeight="150.0" prefWidth="37.0">
                                  <children>
-                                    <Button fx:id="two" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="2">
+                                    <Button fx:id="two" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="2">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="five" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="5">
+                                    <Button fx:id="five" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="5">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="eight" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="8">
+                                    <Button fx:id="eight" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="8">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="comma" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text=".">
+                                    <Button fx:id="comma" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text=".">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
@@ -411,22 +542,22 @@
                               </VBox>
                               <VBox layoutX="129.0" layoutY="131.0" prefHeight="151.0" prefWidth="37.0">
                                  <children>
-                                    <Button fx:id="three" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="3">
+                                    <Button fx:id="three" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="3">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="six" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="6">
+                                    <Button fx:id="six" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="6">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="nine" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="9">
+                                    <Button fx:id="nine" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="9">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="multiply" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="x">
+                                    <Button fx:id="multiply" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="x">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
@@ -435,30 +566,30 @@
                               </VBox>
                               <VBox layoutX="193.0" layoutY="131.0" prefHeight="164.0" prefWidth="37.0">
                                  <children>
-                                    <Button fx:id="plus" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="+">
+                                    <Button fx:id="plus" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="+">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="minus" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="-">
+                                    <Button fx:id="minus" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="-">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="divide" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="/">
+                                    <Button fx:id="divide" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="/">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="equall" layoutX="10.0" layoutY="88.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="stockButtons" text="=">
+                                    <Button fx:id="equall" layoutX="10.0" layoutY="88.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="42.0" styleClass="buttons2" text="=">
                                        <VBox.margin>
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
                               </VBox>
-                              <Button fx:id="clear" layoutX="129.0" layoutY="295.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="101.0" styleClass="stockButtons" text="Clear" />
-                              <Pane layoutX="10.0" layoutY="12.0" prefHeight="109.0" prefWidth="227.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-border-color: #777b7e;">
+                              <Button fx:id="clear" layoutX="129.0" layoutY="295.0" mnemonicParsing="false" onAction="#calculate" prefHeight="26.0" prefWidth="101.0" styleClass="buttons" text="Clear" />
+                              <Pane layoutX="10.0" layoutY="12.0" prefHeight="109.0" prefWidth="227.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-border-color: #777b7e; -fx-background-radius: 15;">
                                  <children>
                                     <Label fx:id="answerLabel" alignment="CENTER" prefHeight="65.0" prefWidth="227.0" textAlignment="CENTER">
                                        <font>
@@ -470,49 +601,16 @@
                               </Pane>
                            </children>
                         </Pane>
-                        <Pane layoutX="61.0" layoutY="49.0" prefHeight="523.0" prefWidth="640.0" style="-fx-background-color: white;" styleClass="stockFrontPanes">
+                        <Pane layoutX="698.0" layoutY="87.0" prefHeight="90.0" prefWidth="184.0" style="-fx-background-radius: 15; -fx-background-color: #fff;" styleClass="panes">
+                           <effect>
+                              <DropShadow color="#e40808" height="48.32" radius="24.4825" width="51.61" />
+                           </effect>
                            <children>
-                              <Label layoutX="290.0" layoutY="28.0" text="New Sale" />
-                              <TextField fx:id="makeSaleItemId" layoutX="31.0" layoutY="68.0" prefHeight="26.0" prefWidth="258.0" promptText="Iterm Id" styleClass="stockFields" />
-                              <TextField fx:id="makeSaleQuantity" layoutX="320.0" layoutY="68.0" prefHeight="26.0" prefWidth="184.0" promptText="Quantity" styleClass="stockFields" />
-                              <Button layoutX="549.0" layoutY="68.0" mnemonicParsing="false" onAction="#makeSale" prefHeight="26.0" prefWidth="61.0" styleClass="stockButtons" text="ok" />
-                              <Label fx:id="errorLabel" layoutX="54.0" layoutY="396.0" prefHeight="16.0" prefWidth="167.0" textFill="RED" />
-                              <Label fx:id="successLabel" layoutX="100.0" layoutY="412.0" prefHeight="16.0" prefWidth="60.0" textFill="RED" />
-                              <Label fx:id="nameItem" layoutX="36.0" layoutY="116.0" text="name" />
-                              <Label fx:id="priceItem" layoutX="212.0" layoutY="117.0" text="\$" />
-                              <Label layoutX="293.0" layoutY="117.0" text="x" />
-                              <Label fx:id="saleQuantity" layoutX="309.0" layoutY="117.0" />
-                              <Label layoutX="379.0" layoutY="117.0" text="Total" />
-                              <Label fx:id="saleTotal" layoutX="447.0" layoutY="117.0" />
-                              <ScrollPane layoutX="14.0" layoutY="155.0" prefHeight="321.0" prefWidth="613.0">
-                                 <content>
-                                    <TableView fx:id="receiptDataTableView" prefHeight="319.0" prefWidth="611.0">
-                                       <columns>
-                                          <TableColumn fx:id="receiptItemName" prefWidth="235.0" styleClass="remake" text="Iterm Name" />
-                                          <TableColumn fx:id="receiptItemPrice" prefWidth="155.0" styleClass="remake" text="Quantity" />
-                                          <TableColumn fx:id="receiptItemQuantity" prefWidth="111.0" styleClass="remake" text="Price" />
-                                          <TableColumn fx:id="receiptItemTotal" prefWidth="106.0" styleClass="remake" text="Total" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
-                              <Button fx:id="shake" layoutX="30.0" layoutY="483.0" mnemonicParsing="false" onAction="#validateSale" styleClass="stockButtons" text="Make Sale" />
-                              <Label layoutX="264.0" layoutY="492.0" text="Receipt Total:" />
-                              <Label fx:id="calTotal" layoutX="379.0" layoutY="488.0" prefHeight="16.0" prefWidth="258.0" style="-fx-text-fill: red;" text="0.00000000000000">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="361.0" layoutY="488.0" prefHeight="24.0" prefWidth="18.0" style="-fx-text-fill: red;" text="\$">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                              </Label>
-                              <Button layoutX="138.0" layoutY="483.0" mnemonicParsing="false" onAction="#clearReceipt" styleClass="stockButtons" text="Clear" />
-                           </children>
-                        </Pane>
-                        <Pane layoutX="806.0" layoutY="49.0" prefHeight="90.0" prefWidth="184.0" style="-fx-background-color: white;">
-                           <children>
+                              <ImageView fitHeight="90.0" fitWidth="184.0" opacity="0.35">
+                                 <image>
+                                    <Image url="@../icons/horizontal1.png" />
+                                 </image>
+                              </ImageView>
                               <Label fx:id="productsRunningLow" prefHeight="90.0" prefWidth="90.0" style="-fx-text-fill: red;" text="35">
                                  <font>
                                     <Font size="68.0" />
@@ -538,97 +636,28 @@
                                  </children>
                               </VBox>
                            </children>
-                           <effect>
-                              <DropShadow color="#e40808" height="48.32" radius="24.4825" width="51.61" />
-                           </effect>
                         </Pane>
-                     </children>
-                  </Pane>
+                     </children></Pane>
                </children>
-            </AnchorPane>
+            </StackPane>
          </children>
-      </AnchorPane>
-      <Pane layoutX="35.0" layoutY="34.0" prefHeight="595.0" prefWidth="142.0" style="-fx-border-color: gray;">
+      </HBox>
+      <Pane fx:id="welcomePane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
          <children>
-            <VBox layoutX="-1.0" prefHeight="595.0" prefWidth="144.0" style="-fx-border-color: gray;" styleClass="vboxbutton">
-               <children>
-                  <Button fx:id="dashboard" alignment="CENTER" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="158.0" styleClass="vboxbutton" text="Dashboad">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="33.0">
-                           <image>
-                              <Image url="@../icons/icons8-home-128.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="salesButton" alignment="CENTER" graphicTextGap="25.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="144.0" styleClass="vboxbutton" text="Sales">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="33.0">
-                           <image>
-                              <Image url="@../icons/icons8-financial-tasks-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="inventoryButton" alignment="CENTER" graphicTextGap="10.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="144.0" styleClass="vboxbutton" text="Products">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="33.0">
-                           <image>
-                              <Image url="@../icons/icons8-open-box-160.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="addInventory" alignment="CENTER" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="160.0" styleClass="vboxbutton" text="Inventory">
-                     <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="25.0">
-                           <image>
-                              <Image url="@../icons/icons8-add-100.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="reports" alignment="CENTER_RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="142.0" styleClass="vboxbutton" text="Reports">
-                     <graphic>
-                        <ImageView fitHeight="42.0" fitWidth="47.0">
-                           <image>
-                              <Image url="@../icons/icons8-combo-chart-200.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="userButton" graphicTextGap="20.0" mnemonicParsing="false" onAction="#paneArrange" prefHeight="45.0" prefWidth="154.0" styleClass="vboxbutton" text="Users">
-                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="45.0">
-                           <image>
-                              <Image url="@../icons/icons8-user-male-512.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="logoutButton" graphicTextGap="20.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" prefWidth="154.0" style="-fx-border-width: 1 0 0 0; -fx-border-color: gray;" styleClass="vboxbutton" text="Log Out">
-                     <VBox.margin>
-                        <Insets top="236.0" />
-                     </VBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0">
-                           <image>
-                              <Image url="@../icons/icons8-user-96.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </Pane>
-      <Pane layoutX="232.0" layoutY="22.0" prefHeight="45.0" prefWidth="1122.0" styleClass="serchPane">
-         <children>
-            <TextField layoutX="880.0" layoutY="10.0" prefHeight="26.0" prefWidth="178.0" promptText="seach" styleClass="seachField" />
-            <Button layoutX="1058.0" layoutY="10.0" mnemonicParsing="false" styleClass="vboxbutton" text="ok" />
-            <Label fx:id="loggedInAs" layoutX="21.0" layoutY="1.0" prefHeight="45.0" prefWidth="279.0" />
+            <ImageView fitHeight="600.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../icons/glassesBlur.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="469.0" layoutY="357.0" prefHeight="56.0" prefWidth="220.0" text="W E L C O M E">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <Circle fx:id="circleWelcome" fill="DODGERBLUE" layoutX="579.0" layoutY="231.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="WelcomeName" alignment="CENTER" layoutX="461.0" layoutY="349.0" prefHeight="16.0" prefWidth="237.0" text="Label" textAlignment="CENTER" />
+            <Button fx:id="welcomeContinueButton" layoutX="505.0" layoutY="420.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="150.0" styleClass="buttons" text="Continue" />
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</GridPane>

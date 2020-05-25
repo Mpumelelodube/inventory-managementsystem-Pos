@@ -26,10 +26,6 @@ public class UserController extends AdminController /*implements Initializable*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        low();
-
-        loggedUser();
-
     }
 
     @Override
