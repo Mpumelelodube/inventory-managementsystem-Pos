@@ -1,11 +1,20 @@
 package admin;
 
 import animatefx.animation.*;
+import com.itextpdf.io.font.FontEncoding;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfVersion;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import dataModels.*;
 import database.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,11 +25,21 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -35,6 +54,19 @@ public class AdminController implements Initializable {
     @FXML
     private Label loggedInAs;
 
+    @FXML
+    private Label loggedInAsSurname;
+
+    @FXML
+    private Label loggedInAsUserName;
+
+    @FXML
+    private Label loggedInAsAccType;
+
+    @FXML
+    private Label WelcomeName;
+
+
     public String userName;
 
     public void loggedUser() {
@@ -46,7 +78,7 @@ public class AdminController implements Initializable {
 
             this.userName = resultSet.getString(1);
 
-            sql = "select firstname, lastname from users where username = ?";
+            sql = "select firstname, lastname, accesslevel, profilePicture from users where username = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -54,14 +86,19 @@ public class AdminController implements Initializable {
 
             resultSet = statement.executeQuery();
 
-            String name = null;
-            String surname = null;
             while (resultSet.next()) {
-                name = resultSet.getString(1);
-                surname = resultSet.getString(2);
-            }
 
-            this.loggedInAs.setText(name + " " + surname);
+                loggedInAs.setText(resultSet.getString(1));
+                loggedInAsSurname.setText(resultSet.getString(2));
+                loggedInAsUserName.setText(userName);
+                loggedInAsAccType.setText(resultSet.getString(3));
+
+                WelcomeName.setText(resultSet.getString(1)+" "+resultSet.getString(2));
+
+                if (!resultSet.getString(4).equalsIgnoreCase("noPic")){
+                    path = resultSet.getString(4);
+                }
+            }
 
             connection.close();
 
@@ -109,8 +146,320 @@ public class AdminController implements Initializable {
         new ZoomIn(root).play();
     }
 
+
+  /////////////////////////////////////////////PANE DISPLAY VARIABLES///////////////////////////
+    int paneInFront = 0;
+
+    @FXML
+    private Pane paneSales;
+
+    @FXML
+    private Pane paneItems;
+
+    @FXML
+    private Pane paneDashboard;
+
+    @FXML
+    private Pane paneEditInventory;
+
+    @FXML
+    private Pane reportsPane;
+
+    @FXML
+    private Pane usersPane;
+
+    @FXML
+    private Pane filterSalesPane;
+
+    @FXML
+    private Pane piePane;
+
+    @FXML
+    private Pane lineChartPane;
+
+    @FXML
+    private Pane paneCreateUser;
+
+    @FXML
+    private Pane paneDeleteUser;
+
+    @FXML
+    private Pane createDeletePane;
+
+    @FXML
+    private Pane generatePdfPane;
+
+    @FXML
+    private HBox hBox;
+
+    @FXML
+    private Button salesButton;
+
+    @FXML
+    private Button inventoryButton;
+
+    @FXML
+    private Button addInventory;
+
+    @FXML
+    private Button dashboard;
+
+    @FXML
+    private Button reports;
+
+    @FXML
+    private Button userButton;
+
+    @FXML
+    private Button filterSalesButton;
+
+    @FXML
+    private Button loadPieChart;
+
+    @FXML
+    private Button loadLineChart;
+
+    @FXML
+    private Button createUSER;
+
+    @FXML
+    private Button deleteUSER;
+
+    @FXML
+    private Button cancelCreateUserButton;
+
+    @FXML
+    private Button deleteUserBackButton;
+
+    @FXML
+    private Button welcomeContinueButton;
+
+    @FXML
+    private Button exportPdfButton;
+    ///////////////////////////////////////////////ACTION BUTTONS/////////////////////////////////////////////////
+
+    @FXML
+    private Button addToReceipt;
+
+    @FXML
+    private Button clearReceipt;
+
+    @FXML
+    private Button makeSale;
+
+    @FXML
+    private Button addItemButton;
+
+    @FXML
+    private Button addNewStockButton;
+
+    @FXML
+    private Button changeCostPriceButton;
+
+    @FXML
+    private Button changeSellingPriceButton;
+
+    @FXML
+    private Button addNewCategoryButton;
+
+    @FXML
+    private Button addDrawingsButton;
+
+    @FXML
+    private Button deleteItemButton;
+
+    @FXML
+    private Button createUserButton;
+
+    @FXML
+    private Button deleteUserButton;
+
+    @FXML
+    Circle circle;
+
+    @FXML
+    Circle circleWelcome;
+
+    ImagePattern imagePattern;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        loggedUser();
+
+        System.out.println("path = "+path);
+        if (path != null){
+            imagePattern = new ImagePattern(new Image(path));
+        }else {
+            imagePattern = new ImagePattern(new Image("/icons/business.png"));
+        }
+
+        circle.setFill(imagePattern);
+        circleWelcome.setFill(imagePattern);
+
+        circle.setOnMouseClicked(mouseEvent -> profilePicture());
+        circleWelcome.setOnMouseClicked(mouseEvent -> profilePicture());
+
+        welcomeContinueButton.setOnMouseClicked(mouseEvent -> hBox.toFront());
+
+        dashboard.setOnMouseClicked(mouseEvent -> {
+            if (paneInFront != 0){
+                new Pulse(this.dashboard).play();
+                this.paneDashboard.toFront();
+                new FadeIn(this.paneDashboard).play();
+                paneInFront = 0;
+            }
+
+        });
+
+        reports.setOnMouseClicked(mouseEvent -> {
+            if (paneInFront != 1){
+                new Pulse(this.reports).play();
+                this.reportsPane.toFront();
+                new FadeIn(this.reportsPane).play();
+                paneInFront = 1;
+                setPieChartData();
+            }
+        });
+
+        addInventory.setOnMouseClicked(mouseEvent -> {
+            if (paneInFront != 2){
+                new Pulse(this.addInventory).play();
+                this.paneEditInventory.toFront();
+                new FadeIn(this.paneEditInventory).play();
+                paneInFront = 2;
+            }
+        });
+
+        userButton.setOnMouseClicked(mouseEvent -> {
+            if (paneInFront != 3){
+                new Pulse(this.userButton).play();
+                getUsers();
+                getLoginData();
+                this.usersPane.toFront();
+                new FadeIn(this.usersPane).play();
+                paneInFront = 3;
+            }
+        });
+
+        inventoryButton.setOnMouseClicked(mouseEvent -> {
+            if (paneInFront != 4){
+                new Pulse(this.inventoryButton).play();
+                loadIterms();
+                this.paneItems.toFront();
+                new FadeIn(this.paneItems).play();
+                paneInFront = 4;
+            }
+        });
+
+        salesButton.setOnMouseClicked(mouseEvent -> {
+            if (paneInFront != 5){
+                new Pulse(this.salesButton).play();
+                loadSales();
+                this.paneSales.toFront();
+                new FadeIn(this.paneSales).play();
+                paneInFront = 5;
+            }
+        });
+
+        exportPdfButton.setOnMouseClicked(mouseEvent -> {
+            generatePdfPane.toFront();
+        });
+
+        createUSER.setOnMouseClicked(mouseEvent -> paneCreateUser.toFront());
+
+        deleteUSER.setOnMouseClicked(mouseEvent -> paneDeleteUser.toFront());
+
+        cancelCreateUserButton.setOnMouseClicked(mouseEvent -> createDeletePane.toFront());
+
+        deleteUserBackButton.setOnMouseClicked(mouseEvent -> createDeletePane.toFront());
+
+        loadLineChart.setOnMouseClicked(mouseEvent -> {
+            lineChartPane.toFront();
+        });
+
+        loadPieChart.setOnMouseClicked(mouseEvent -> {
+            piePane.toFront();
+        });
+
+
+
+
+
+
+
+        addToReceipt.setOnMouseClicked(mouseEvent -> makeSale());
+
+        clearReceipt.setOnMouseClicked(mouseEvent -> clearReceipt());
+
+        makeSale.setOnMouseClicked(mouseEvent -> validateSale());
+
+        addItemButton.setOnMouseClicked(mouseEvent -> addIterm());
+
+        addNewStockButton.setOnMouseClicked(mouseEvent -> newStock());
+
+        changeCostPriceButton.setOnMouseClicked(mouseEvent -> setCostPrice());
+
+        changeSellingPriceButton.setOnMouseClicked(mouseEvent -> setSellingPrice());
+
+        addNewCategoryButton.setOnMouseClicked(mouseEvent -> addCategory());
+
+        addDrawingsButton.setOnMouseClicked(mouseEvent -> damagesDrawings());
+
+        deleteItemButton.setOnMouseClicked(mouseEvent -> deleteItem());
+
+        createUserButton.setOnMouseClicked(mouseEvent -> createUser());
+
+        deleteUserButton.setOnMouseClicked(mouseEvent -> deleteUser());
+
+        logoutButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                logOut();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        salesMonth.setDisable(true);
+        salesYear.setDisable(true);
+        purchasesMonth.setDisable(true);
+        purchasesYear.setDisable(true);
+
+        purchasesIncludeDate.setOnMouseClicked(mouseEvent -> {
+            if (purchasesIncludeDate.isSelected()){
+                purchasesMonth.setDisable(false);
+                purchasesYear.setDisable(false);
+            }else {
+                purchasesMonth.setDisable(true);
+                purchasesYear.setDisable(true);
+            }
+        });
+
+        salesIncludeDate.setOnMouseClicked(mouseEvent -> {
+            if (salesIncludeDate.isSelected()){
+                salesMonth.setDisable(false);
+                salesYear.setDisable(false);
+            }else {
+                salesMonth.setDisable(true);
+                salesYear.setDisable(true);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         String sql = "select * from category";
 
         try {
@@ -126,13 +475,587 @@ public class AdminController implements Initializable {
         }
 
         this.categoryField.setItems(this.combodetails);
+        this.productCategory.setItems(this.combodetails);
+        this.purchasesCategory.setItems(this.combodetails);
+        this.salesCategory.setItems(this.combodetails);
+        this.purchasesMonth.setItems(month);
+        this.purchasesYear.setItems(year);
+        this.salesMonth.setItems(month);
+        this.salesYear.setItems(year);
 
         this.accessLevelCombo.setItems(this.accessComboData);
 
         low();
 
-        loggedUser();
+    }
 
+    @FXML
+    private RadioButton productsRadio;
+
+    @FXML
+    private RadioButton productsCategoryRadio;
+
+    @FXML
+    private RadioButton purchasesRadio;
+
+    @FXML
+    private RadioButton purchasesCategoryRadio;
+
+    @FXML
+    private RadioButton salesRadio;
+
+    @FXML
+    private RadioButton salesCategoryRadio;
+
+    @FXML
+    private TextField fileNameField;
+
+
+    @FXML
+    private ComboBox<String> productCategory;
+
+    @FXML
+    private ComboBox<String> purchasesCategory;
+
+    @FXML
+    private ComboBox<String> purchasesMonth;
+
+    @FXML
+    private ComboBox<String> purchasesYear;
+
+    @FXML
+    private ComboBox<String> salesCategory;
+
+    @FXML
+    private ComboBox<String> salesMonth;
+
+    @FXML
+    private ComboBox<String> salesYear;
+
+    @FXML
+    private  CheckBox purchasesIncludeDate;
+
+    @FXML
+    private  CheckBox salesIncludeDate;
+
+
+
+    ObservableList<String> month = FXCollections.observableArrayList("January","February","March","April","May",
+            "June","July","August","September","October","November","December");
+    ObservableList<String> year = FXCollections.observableArrayList("2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030");
+
+    public void generatePdf() {
+        try {
+            String fileName = fileNameField.getText();
+            if (fileName == null){
+                fileName = "document";
+            }
+
+            PdfWriter pdfWriter = new PdfWriter(fileName,new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0));
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            pdfDocument.setTagged();
+            Document document = new Document(pdfDocument);
+
+
+
+            String companyName = "CONCEPT INVESTMENTS";
+            String email = "visionbearersinc@gmail.com";
+
+
+
+            document.add(new Paragraph(companyName +"\n"+email+"\nDate: "+getDate()+"\nPrepared by: "+loggedInAs.getText()+" "+loggedInAsSurname.getText()));
+
+            if (productsRadio.isSelected()) {
+                document.add(new Paragraph("\n\nProducts"));
+                Table table = new Table(8);
+                table.addCell("product Id");
+                table.addCell("Product Name");
+                table.addCell("Category");
+                table.addCell("Quantity");
+                table.addCell("Cost Price");
+                table.addCell("Markup");
+                table.addCell("Selling Price");
+                table.addCell("Damages");
+
+
+
+                String sql = "select * from iterms";
+
+                try {
+                    Connection connection = DatabaseConnection.connection();
+                    ResultSet resultSet = connection.createStatement().executeQuery(sql);
+
+                    while (resultSet.next()){
+                        table.addCell(resultSet.getString(1));
+                        table.addCell(resultSet.getString(2));
+                        table.addCell(resultSet.getString(3));
+                        table.addCell(resultSet.getString(5));
+                        table.addCell(resultSet.getString(6));
+                        table.addCell(resultSet.getString(7));
+                        table.addCell(resultSet.getString(8));
+                        table.addCell(resultSet.getString(9));
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                table.setFontSize(8);
+                document.add(table);
+
+            }
+
+            if (productsCategoryRadio.isSelected()) {
+                document.add(new Paragraph("\n \n"));
+                document.add(new Paragraph("Products under "+productCategory.getValue()+" category"));
+
+                Table table = new Table(8);
+                table.addCell("product Id");
+                table.addCell("Product Name");
+                table.addCell("Category");
+                table.addCell("Quantity");
+                table.addCell("Cost Price");
+                table.addCell("Markup");
+                table.addCell("Selling Price");
+                table.addCell("Damages");
+
+
+
+                String sql = "select * from iterms  where category = ?";
+
+                try {
+                    Connection connection = DatabaseConnection.connection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                    preparedStatement.setString(1, productCategory.getValue());
+                    ResultSet resultSet = preparedStatement.executeQuery();
+
+                    while (resultSet.next()){
+                        table.addCell(resultSet.getString(1));
+                        table.addCell(resultSet.getString(2));
+                        table.addCell(resultSet.getString(3));
+                        table.addCell(resultSet.getString(5));
+                        table.addCell(resultSet.getString(6));
+                        table.addCell(resultSet.getString(7));
+                        table.addCell(resultSet.getString(8));
+                        table.addCell(resultSet.getString(9));
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                table.setFontSize(8);
+                document.add(table);
+            }
+
+            if (purchasesRadio.isSelected()) {
+                if (purchasesIncludeDate.isSelected()){
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Purchases month :"+purchasesMonth.getValue()+", year :"+purchasesYear.getValue()));
+
+                    Table table = new Table(7);
+                    table.addCell("purchase date");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Cost Price");
+                    table.addCell("Total");
+
+
+
+                    String sql = "select purchases.date, purchases.itermid, iterms.name, iterms.category, purchases.quantity, purchases.purchaseprice, purchases.total  from purchases, iterms where purchases.itermid == iterms.itermid and date like ? and date like ?";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                        preparedStatement.setString(1, "%"+purchasesMonth.getValue().substring(0,3)+"%");
+                        preparedStatement.setString(2,"%"+purchasesYear.getValue()+"%");
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        System.out.println(purchasesMonth.getValue().substring(0,3));
+                        System.out.println(purchasesYear.getValue());
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }else {
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Purchases"));
+
+                    Table table = new Table(7);
+                    table.addCell("purchase date");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Cost Price");
+                    table.addCell("Total");
+
+
+
+                    String sql = "select purchases.date, purchases.itermid, iterms.name, iterms.category, purchases.quantity, purchases.purchaseprice, purchases.total  from purchases, iterms where purchases.itermid == iterms.itermid";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        ResultSet resultSet = connection.createStatement().executeQuery(sql);
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }
+            }
+
+            if (purchasesCategoryRadio.isSelected()) {
+                if (purchasesIncludeDate.isSelected()){
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Purchases of goods under "+purchasesCategory.getValue()+" category month:"+purchasesMonth.getValue()+", year :"+purchasesYear.getValue()));
+
+                    Table table = new Table(7);
+                    table.addCell("purchase date");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Cost Price");
+                    table.addCell("Total");
+
+
+
+                    String sql = "select purchases.date, purchases.itermid, iterms.name, iterms.category, purchases.quantity, purchases.purchaseprice, purchases.total  from purchases, iterms where purchases.itermid == iterms.itermid and category = ? and date like ? and date like ?";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                        preparedStatement.setString(1, purchasesCategory.getValue());
+                        preparedStatement.setString(2, "%"+purchasesMonth.getValue()+"%");
+                        preparedStatement.setString(3, "%"+purchasesYear.getValue()+"%");
+
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }else {
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Purchases of goods under "+purchasesCategory.getValue()+" category"));
+
+                    Table table = new Table(7);
+                    table.addCell("purchase date");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Cost Price");
+                    table.addCell("Total");
+
+
+
+                    String sql = "select purchases.date, purchases.itermid, iterms.name, iterms.category, purchases.quantity, purchases.purchaseprice, purchases.total  from purchases, iterms where purchases.itermid == iterms.itermid and category = ?";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                        preparedStatement.setString(1, purchasesCategory.getValue());
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }
+
+            }
+
+            if (salesRadio.isSelected()) {
+                if (salesIncludeDate.isSelected()){
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Sales from "+salesMonth.getValue()+", "+salesYear.getValue()));
+
+                    Table table = new Table(9);
+                    table.addCell("Date");
+                    table.addCell("Sales Id");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Selling Price");
+                    table.addCell("Total");
+                    table.addCell("Receipt#");
+
+
+
+                    String sql = "select sales.salesdate, sales.salesid,sales.itermid,iterms.name,iterms.category,sales.quantity,iterms.sellingprice,sales.total,sales.receiptnumber from sales,iterms where sales.itermid == iterms.itermid and salesdate like ? and salesdate like ?";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%"+salesMonth.getValue()+"%");
+                        preparedStatement.setString(2,"%"+salesYear.getValue()+"%");
+
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                            table.addCell(resultSet.getString(8));
+                            table.addCell(resultSet.getString(9));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }else {
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Sales"));
+
+                    Table table = new Table(9);
+                    table.addCell("Date");
+                    table.addCell("Sales Id");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Selling Price");
+                    table.addCell("Total");
+                    table.addCell("Receipt#");
+
+
+
+                    String sql = "select sales.salesdate, sales.salesid,sales.itermid,iterms.name,iterms.category,sales.quantity,iterms.sellingprice,sales.total,sales.receiptnumber from sales,iterms where sales.itermid == iterms.itermid";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        ResultSet resultSet = connection.createStatement().executeQuery(sql);
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                            table.addCell(resultSet.getString(8));
+                            table.addCell(resultSet.getString(9));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }
+            }
+
+            if(salesCategoryRadio.isSelected()){
+                if (salesIncludeDate.isSelected()){
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Sales under "+salesCategory.getValue()+" month: "+salesMonth.getValue()+", year: "+salesYear.getValue()));
+
+                    Table table = new Table(9);
+                    table.addCell("Date");
+                    table.addCell("Sales Id");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Selling Price");
+                    table.addCell("Total");
+                    table.addCell("Receipt#");
+
+
+
+                    String sql = "select sales.salesdate, sales.salesid,sales.itermid,iterms.name,iterms.category,sales.quantity,iterms.sellingprice,sales.total,sales.receiptnumber from sales,iterms where sales.itermid == iterms.itermid and category = ? and salesdate like ? and salesdate like ?";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                        preparedStatement.setString(1, salesCategory.getValue());
+                        preparedStatement.setString(2, "%"+salesMonth.getValue()+"%");
+                        preparedStatement.setString(3, "%"+salesYear.getValue()+"%");
+
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                            table.addCell(resultSet.getString(8));
+                            table.addCell(resultSet.getString(9));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }else {
+                    document.add(new Paragraph("\n \n"));
+                    document.add(new Paragraph("Sales under "+salesCategory.getValue()+" category"));
+                    Table table = new Table(9);
+                    table.addCell("Date");
+                    table.addCell("Sales Id");
+                    table.addCell("product Id");
+                    table.addCell("Product Name");
+                    table.addCell("Category");
+                    table.addCell("Quantity");
+                    table.addCell("Selling Price");
+                    table.addCell("Total");
+                    table.addCell("Receipt#");
+
+
+
+                    String sql = "select sales.salesdate, sales.salesid,sales.itermid,iterms.name,iterms.category,sales.quantity,iterms.sellingprice,sales.total,sales.receiptnumber from sales,iterms where sales.itermid == iterms.itermid and category = ?";
+
+                    try {
+                        Connection connection = DatabaseConnection.connection();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                        preparedStatement.setString(1, salesCategory.getValue());
+                        ResultSet resultSet = preparedStatement.executeQuery();
+
+                        while (resultSet.next()){
+                            table.addCell(resultSet.getString(1));
+                            table.addCell(resultSet.getString(2));
+                            table.addCell(resultSet.getString(3));
+                            table.addCell(resultSet.getString(4));
+                            table.addCell(resultSet.getString(5));
+                            table.addCell(resultSet.getString(6));
+                            table.addCell(resultSet.getString(7));
+                            table.addCell(resultSet.getString(8));
+                            table.addCell(resultSet.getString(9));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    table.setFontSize(8);
+                    document.add(table);
+                }
+            }
+
+
+            document.close();
+            System.out.println("reaper");
+        } catch (FileNotFoundException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inventory Management System");
+            alert.setHeaderText("Error Generating pdf");
+            alert.setContentText("There was an error generating the document\nplease specify document name in\nthe file name field ");
+            alert.showAndWait();
+        }
+    }
+
+    String path = null;
+    private void profilePicture() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images","*.jpg"),new FileChooser.ExtensionFilter("Png","*.png"));
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null){
+            try {
+                path = selectedFile.toURI().toURL().toExternalForm();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ImagePattern imagePattern = new ImagePattern(new Image(path));
+        circle.setFill(imagePattern);
+
+        String sql = "update users set profilePicture = ? where username = ?";
+
+        try {
+            Connection connection = DatabaseConnection.connection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, path);
+            preparedStatement.setString(2,userName);
+
+            preparedStatement.execute();
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -317,6 +1240,9 @@ public class AdminController implements Initializable {
     private TextField stockQuantity;
 
     @FXML
+    private TextField purchasePrice;
+
+    @FXML
     public void newStock() {
         String value = null;
         String sql = "select quantity from iterms where itermid = '" + this.stockItermId.getText() + "'";
@@ -331,22 +1257,35 @@ public class AdminController implements Initializable {
 
             String sql2 = "update iterms set quantity = ? where itermid = ?";
             int temp = Integer.parseInt(value) + Integer.parseInt(this.stockQuantity.getText());
-            PreparedStatement statement = connection.prepareStatement(sql2);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql2);
             System.out.println(temp);
-            statement.setInt(1, temp);
-            statement.setString(2, this.stockItermId.getText());
+            preparedStatement.setInt(1, temp);
+            preparedStatement.setString(2, this.stockItermId.getText());
 
-            statement.execute();
+            preparedStatement.execute();
 
-            String sql3 = "insert into newstock(date,itermid,quantity) values(?,?,?)";
+            /*String sql3 = "insert into newstock(date,itermid,quantity) values(?,?,?)";
 
-            statement = connection.prepareStatement(sql3);
+            preparedStatement = connection.prepareStatement(sql3);
 
-            statement.setString(1, getDate());
-            statement.setString(2, this.stockItermId.getText());
-            statement.setInt(3, Integer.parseInt(this.stockQuantity.getText()));
+            preparedStatement.setString(1, getDate());
+            preparedStatement.setString(2, this.stockItermId.getText());
+            preparedStatement.setInt(3, Integer.parseInt(this.stockQuantity.getText()));
 
-            statement.execute();
+            preparedStatement.execute();*/
+
+
+            sql = "insert into purchases(date, itermid, quantity, purchasePrice, total) values(?,?,?,?,?)";
+
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, getDate());
+            preparedStatement.setString(2, this.stockItermId.getText());
+            preparedStatement.setInt(3, Integer.parseInt(this.stockQuantity.getText()));
+            preparedStatement.setDouble(4, Double.parseDouble(this.purchasePrice.getText()));
+            preparedStatement.setDouble(5, Integer.parseInt(this.stockQuantity.getText())*Double.parseDouble(this.purchasePrice.getText()));
+
+            preparedStatement.execute();
 
             Alert al = new Alert(Alert.AlertType.INFORMATION);
             al.setTitle("Inventory Management");
@@ -507,7 +1446,7 @@ public class AdminController implements Initializable {
     private TextField addCategoryField;
 
     @FXML
-    public void addCategory(ActionEvent event) {
+    public void addCategory() {
         try {
             Connection connection = DatabaseConnection.connection();
 
@@ -725,10 +1664,10 @@ public class AdminController implements Initializable {
                     total = Double.parseDouble(this.priceX) * Integer.parseInt(this.makeSaleQuantity.getText());
                     this.receiptTotal = this.receiptTotal + (Double.parseDouble(priceX) * Integer.parseInt(this.makeSaleQuantity.getText()));
 
-                    this.nameItem.setText(nameX);
-                    this.priceItem.setText(priceX);
-                    this.saleQuantity.setText(this.makeSaleQuantity.getText());
-                    this.saleTotal.setText(String.valueOf(this.total));
+//                    this.nameItem.setText(nameX);
+//                    this.priceItem.setText(priceX);
+//                    this.saleQuantity.setText(this.makeSaleQuantity.getText());
+//                    this.saleTotal.setText(String.valueOf(this.total));
                     this.calTotal.setText(String.valueOf(this.receiptTotal));
 
                     connection.close();
@@ -874,10 +1813,6 @@ public class AdminController implements Initializable {
         this.makeSaleQuantity.clear();
         this.makeSaleItemId.clear();
         this.calTotal.setText("0.00000000");
-        this.nameItem.setText("");
-        this.priceItem.setText("");
-        this.saleQuantity.setText("");
-        this.saleTotal.setText("");
         this.receiptTotal = 0;
 
         try {
@@ -965,10 +1900,10 @@ public class AdminController implements Initializable {
 
             this.calTotal.setText("0.00000000");
             this.receiptTotal = 0;
-            this.nameItem.setText("");
-            this.priceItem.setText("");
-            this.saleQuantity.setText("");
-            this.saleTotal.setText("");
+//            this.nameItem.setText("");
+//            this.priceItem.setText("");
+//            this.saleQuantity.setText("");
+//            this.saleTotal.setText("");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -980,7 +1915,7 @@ public class AdminController implements Initializable {
         LocalDateTime localDateTime = LocalDateTime.now();
         System.out.println(localDateTime);
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM-dd-YYYY hh:mm a");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM-dd-YYYY, hh:mm a");
 
         System.out.println(dtf.format(localDateTime));
         return dtf.format(localDateTime);
@@ -1220,61 +2155,9 @@ public class AdminController implements Initializable {
 
     ////////////////////////////////////////////////////PANE ARRANGEMENT////////////////////////////////////////////////
 
-    @FXML
-    private Pane paneSales;
 
-    @FXML
-    private Pane paneItems;
 
-    @FXML
-    private Pane paneDashboard;
-
-    @FXML
-    private Pane paneEditInventory;
-
-    @FXML
-    private Pane reportsPane;
-
-    @FXML
-    private Pane usersPane;
-
-    @FXML
-    private Pane filterSalesPane;
-
-    @FXML
-    private Pane piePane;
-
-    @FXML
-    private Pane lineChartPane;
-
-    @FXML
-    private Button salesButton;
-
-    @FXML
-    private Button inventoryButton;
-
-    @FXML
-    private Button addInventory;
-
-    @FXML
-    private Button dashboard;
-
-    @FXML
-    private Button reports;
-
-    @FXML
-    private Button userButton;
-
-    @FXML
-    private Button filterSalesButton;
-
-    @FXML
-    private Button loadPieChart;
-
-    @FXML
-    private Button loadLineChart;
-
-    @FXML
+    /*@FXML
     public void paneArrange(ActionEvent event) {
         if (event.getSource().equals(this.salesButton)) {
             new Pulse(this.salesButton).play();
@@ -1327,7 +2210,7 @@ public class AdminController implements Initializable {
             this.lineChartPane.toFront();
             new FadeIn(this.lineChartPane).play();
         }
-    }
+    }*/
 
     //////////////////////////////////////////////////////////   CHARTs  //////////////////////////////////////////////////
     @FXML
@@ -1381,7 +2264,7 @@ public class AdminController implements Initializable {
     private LineChart<String, Number> lineChart;
     private ObservableList<LineChartData> lineChartData;
 
-    public void lineChart(ActionEvent event) {
+    public void lineChart() {
 
         String month[] = {"jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"};
 
@@ -1393,14 +2276,16 @@ public class AdminController implements Initializable {
         lineChart.getData().clear();
 
 
-        String sql2 = "select sum(sales.total),sum(iterms.costprice) from sales,iterms where salesdate like ? and sales.itermid == iterms.itermid";
+        String sql2 = "select sum(total),sum(costprice) from (select sales.total,iterms.costprice, sales.salesdate from sales,iterms where salesdate like ? and sales.itermid == iterms.itermid) where salesdate like ?";
             try {
                 Connection connection = DatabaseConnection.connection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                 ResultSet resultSet;
 
                 for (int i = 0; i < month.length; i++){
-                    preparedStatement.setString(1,"%"+month[i]+"%");
+                    preparedStatement.setString(1,"%"+getDate().substring(getDate().lastIndexOf(",")-4,getDate().lastIndexOf(","))+"%");
+                    preparedStatement.setString(2,"%"+month[i]+"%");
+
                     resultSet = preparedStatement.executeQuery();
                     lineChartData.add(new LineChartData(month[i],resultSet.getString(1),resultSet.getString(2)));
                     System.out.println(resultSet.getString(1)+"......"+resultSet.getString(2)+"......"+month[i]);
@@ -1421,6 +2306,7 @@ public class AdminController implements Initializable {
         seriesProfit.setName("Profit");
         seriesCost.setName("COGS");
         this.lineChart.getData().addAll(series,seriesProfit,seriesCost);
+
     }
 
     ////////////////////////////////////////////////////////// USERS ///////////////////////////////////////////////////////
